@@ -9175,7 +9175,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Hips/RiflePosition/MuzzleFlash01
+    path: Hips/RiflePosition/FirePoint/MuzzleFlash01
     classID: 1
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -9187,7 +9187,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2455271409
+      path: 1510351714
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -22659,7 +22659,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: Hips/RiflePosition/MuzzleFlash01
+    path: Hips/RiflePosition/FirePoint/MuzzleFlash01
     classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves:

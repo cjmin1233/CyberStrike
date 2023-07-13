@@ -370,6 +370,11 @@ public class FirstPersonController : MonoBehaviour
         {
             HeadBob();
         }
+
+        #region Fire
+        isFiring = !isSprinting && Input.GetButton("Fire1");
+        animator.SetBool("IsFiring", isFiring);
+        #endregion
     }
 
     void FixedUpdate()
