@@ -464,12 +464,13 @@ public class FirstPersonController : MonoBehaviour
     {
         Vector3 origin = new Vector3(transform.position.x, transform.position.y + (transform.localScale.y * .5f), transform.position.z);
         Vector3 direction = transform.TransformDirection(Vector3.down);
-        float distance = .75f;
+        float distance = .65f;
 
         if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
         {
             Debug.DrawRay(origin, direction * distance, Color.red);
             isGrounded = true;
+            if (animator.GetBool("IsJumping")) animator.SetBool("IsJumping", false);
         }
         else
         {
@@ -484,6 +485,7 @@ public class FirstPersonController : MonoBehaviour
         {
             rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
             isGrounded = false;
+            animator.SetBool("IsJumping", true);
         }
 
         // When crouched and using toggle system, will uncrouch for a jump
