@@ -107,7 +107,8 @@ public class Gun : MonoBehaviour
         bulletLineRenderer.SetPosition(1, hitPosition);
         bulletLineRenderer.enabled = true;
 
-        yield return new WaitForSeconds(0.03f);
+        //yield return new WaitForFixedUpdate();
+        yield return new WaitForSeconds(Time.fixedDeltaTime);
 
         bulletLineRenderer.enabled = false;
     }

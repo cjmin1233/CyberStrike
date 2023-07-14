@@ -347,6 +347,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6146230012445758515, guid: 30fdc8597043e4647bb7bbb15502fafd, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Head'\n\tTransform 'LowerArm_Right'\n\tTransform
+        'Neck'\n\tTransform 'Hips'\n\tTransform 'UpperArm_Right'\n\tTransform 'Head'\n\tTransform
+        'LowerArm_Right'\n\tTransform 'Neck'\n\tTransform 'Hips'\n\tTransform 'UpperArm_Right'\n\tand
+        more ..."
+      objectReference: {fileID: 0}
     - target: {fileID: 8176986907674656533, guid: 30fdc8597043e4647bb7bbb15502fafd, type: 3}
       propertyPath: m_Name
       value: FirstPersonController_v3

@@ -47,6 +47,7 @@ public class PlayerShooter : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        playerAnimator.SetBool("IsFiring", playerInput.fire);
         if (playerInput.fire) Shoot();
     }
     public void WeaponSetup()
