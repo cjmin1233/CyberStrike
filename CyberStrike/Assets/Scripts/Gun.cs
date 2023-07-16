@@ -19,7 +19,6 @@ public class Gun : MonoBehaviour
     public GunState gunState { get; private set; }
 
     private LineRenderer bulletLineRenderer;
-    [SerializeField] ParticleSystem muzzleFlashEffect;
     [SerializeField] Transform firePoint;
     public Transform leftGrabPoint;
     public float fireDistance = 100f;
@@ -37,11 +36,19 @@ public class Gun : MonoBehaviour
     float currenSpreadVelocity;
 
     float lastFireTime;
+
+    #region Effects
+    AudioSource gunAudioPlayer;
+    [SerializeField] ParticleSystem muzzleFlashEffect;
+    [SerializeField] AudioClip shotClip;
+    #endregion
     private void Awake()
     {
         bulletLineRenderer = GetComponent<LineRenderer>();
         bulletLineRenderer.positionCount = 2;
         bulletLineRenderer.enabled = false;
+
+        gunAudioPlayer = GetComponent<AudioSource>();
     }
     private void OnEnable()
     {
@@ -102,6 +109,7 @@ public class Gun : MonoBehaviour
     private IEnumerator ShotEffect(Vector3 hitPosition)
     {
         muzzleFlashEffect.Play();
+        gunAudioPlayer.PlayOneShot(shotClip);
 
         bulletLineRenderer.SetPosition(0, firePoint.position);
         bulletLineRenderer.SetPosition(1, hitPosition);
