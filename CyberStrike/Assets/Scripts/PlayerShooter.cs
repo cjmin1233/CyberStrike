@@ -8,8 +8,9 @@ public class PlayerShooter : MonoBehaviour
 {
     public enum AimState
     {
-        Idle,
-        HipFire
+        Sprinting,
+        HipFire,
+        Reloading
     }
     public enum WeaponType
     {
@@ -18,8 +19,6 @@ public class PlayerShooter : MonoBehaviour
     Animator playerAnimator;
     PlayerInput playerInput;
     RigBuilder rigBuilder;
-    //[SerializeField] CinemachineVirtualCamera playerCamera;
-    //bool isFiring = false;
 
     Gun gun;
     [SerializeField] GameObject[] weapons;
@@ -30,7 +29,7 @@ public class PlayerShooter : MonoBehaviour
     Ray camRay;
     [SerializeField] Transform viewPoint;
     Vector3 aimPoint;
-    //AimState aimState;
+    AimState aimState;
     private void Awake()
     {
         playerAnimator = GetComponentInChildren<Animator>();
@@ -38,17 +37,18 @@ public class PlayerShooter : MonoBehaviour
 
         rigBuilder = GetComponentInChildren<RigBuilder>();
 
-        // first weapon position setting
+        // first weapon setting
         WeaponSetup();
     }
     private void Update()
     {
+        UpdateAimState();
         UpdateAimPoint();
     }
     private void FixedUpdate()
     {
-        playerAnimator.SetBool("IsFiring", playerInput.fire);
-        if (playerInput.fire) Shoot();
+        if (playerInput.fire && aimState == AimState.HipFire) Shoot();
+        else playerAnimator.SetBool("IsFiring", false);
     }
     public void WeaponSetup()
     {
@@ -74,8 +74,14 @@ public class PlayerShooter : MonoBehaviour
         if (Physics.Raycast(viewPoint.position, viewPoint.forward, out aimHit, gun.fireDistance)) aimPoint = aimHit.point;
         else aimPoint = viewPoint.position + viewPoint.forward * gun.fireDistance;
     }
+    void UpdateAimState()
+    {
+        if (playerAnimator.GetBool("IsSprinting")) aimState = AimState.Sprinting;
+        else aimState = AimState.HipFire;
+    }
     void Shoot()
     {
+        playerAnimator.SetBool("IsFiring", true);
         gun.Fire(aimPoint);
     }
 }

@@ -14,13 +14,15 @@ using Cinemachine;
 using UnityEditor;
 using System.Net;
 #endif
-
+[RequireComponent(typeof(Rigidbody), typeof(PlayerInput), typeof(Collider))]
 public class PlayerControllerFPS : MonoBehaviour
 {
     private Rigidbody rb;
+    private PlayerInput playerInput;
+    private Animator animator;
 
     #region Camera Movement Variables
-    [Header("-Camera Setup-")]
+    [Header("-Camera-")]
     [Tooltip("플레이어에 부착된 카메라")]
     public CinemachineVirtualCamera playerCamera;
 
@@ -43,10 +45,10 @@ public class PlayerControllerFPS : MonoBehaviour
 
     #region Camera Zoom Variables
 
-    [Space(10f), Header("-Zoom-")]
+    [Header("-Zoom-"), Space(10f)]
     public bool enableZoom = true;
     public bool holdToZoom = false;
-    public KeyCode zoomKey = KeyCode.Mouse1;
+    //public KeyCode zoomKey = KeyCode.Mouse1;
     public float zoomFOV = 30f;
     public float zoomStepTime = 5f;
 
@@ -57,19 +59,19 @@ public class PlayerControllerFPS : MonoBehaviour
     #endregion
 
     #region Movement Variables
-
+    [Header("-Movement-"), Space(10f)]
     public bool playerCanMove = true;
     public float walkSpeed = 5f;
-    public float maxVelocityChange = 10f;
+    [HideInInspector] public float maxVelocityChange = 10f;
 
     // Internal Variables
     private bool isWalking = false;
 
     #region Sprint
-
+    [Header("-Sprint-"), Space(10f)]
     public bool enableSprint = true;
     public bool unlimitedSprint = false;
-    public KeyCode sprintKey = KeyCode.LeftShift;
+    //public KeyCode sprintKey = KeyCode.LeftShift;
     public float sprintSpeed = 7f;
     public float sprintDuration = 5f;
     public float sprintCooldown = .5f;
@@ -81,24 +83,20 @@ public class PlayerControllerFPS : MonoBehaviour
     public bool hideBarWhenFull = true;
     public Image sprintBarBG;
     public Image sprintBar;
-    public float sprintBarWidthPercent = .3f;
-    public float sprintBarHeightPercent = .015f;
 
     // Internal Variables
     private CanvasGroup sprintBarCG;
     private bool isSprinting = false;
     private float sprintRemaining;
-    private float sprintBarWidth;
-    private float sprintBarHeight;
     private bool isSprintCooldown = false;
     private float sprintCooldownReset;
 
     #endregion
 
     #region Jump
-
+    [Header("-Jump-"), Space(10f)]
     public bool enableJump = true;
-    public KeyCode jumpKey = KeyCode.Space;
+    //public KeyCode jumpKey = KeyCode.Space;
     public float jumpPower = 5f;
 
     // Internal Variables
@@ -106,23 +104,23 @@ public class PlayerControllerFPS : MonoBehaviour
 
     #endregion
 
-    #region Crouch
+    //#region Crouch
+    //[Header("-Crouch-"), Space(10f)]
+    //public bool enableCrouch = true;
+    //public bool holdToCrouch = true;
+    //public KeyCode crouchKey = KeyCode.LeftControl;
+    //public float crouchHeight = .75f;
+    //public float speedReduction = .5f;
 
-    public bool enableCrouch = true;
-    public bool holdToCrouch = true;
-    public KeyCode crouchKey = KeyCode.LeftControl;
-    public float crouchHeight = .75f;
-    public float speedReduction = .5f;
+    //// Internal Variables
+    //private bool isCrouched = false;
+    //private Vector3 originalScale;
 
-    // Internal Variables
-    private bool isCrouched = false;
-    private Vector3 originalScale;
-
-    #endregion
+    //#endregion
     #endregion
 
     #region Head Bob
-
+    [Header("-Head Bob-"), Space(10f)]
     public bool enableHeadBob = true;
     public Transform joint;
     public float bobSpeed = 10f;
@@ -132,20 +130,18 @@ public class PlayerControllerFPS : MonoBehaviour
     private Vector3 jointOriginalPos;
     private float timer = 0;
 
-    private Animator animator;
-    private bool isFiring = false;
     #endregion
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
-
+        playerInput = GetComponent<PlayerInput>();
         crosshairObject = GetComponentInChildren<Image>();
 
         // Set internal variables
-        //playerCamera.fieldOfView = fov;
         playerCamera.m_Lens.FieldOfView = fov;
-        originalScale = transform.localScale;
+        //originalScale = transform.localScale;
         jointOriginalPos = joint.localPosition;
 
         if (!unlimitedSprint)
@@ -208,6 +204,10 @@ public class PlayerControllerFPS : MonoBehaviour
 
     private void Update()
     {
+        // Animator parameter update.
+        animator.SetBool("IsWalking", isWalking);
+        animator.SetBool("IsSprinting", isSprinting);
+
         #region Camera
 
         // Control camera movement
@@ -237,42 +237,41 @@ public class PlayerControllerFPS : MonoBehaviour
         if (enableZoom)
         {
             // Changes isZoomed when key is pressed
-            // Behavior for toogle zoom
-            if (Input.GetKeyDown(zoomKey) && !holdToZoom && !isSprinting)
-            {
-                if (!isZoomed)
-                {
-                    isZoomed = true;
-                }
-                else
-                {
-                    isZoomed = false;
-                }
-            }
+            //// Behavior for toogle zoom
+            //if (Input.GetKeyDown(zoomKey) && !holdToZoom && !isSprinting)
+            //{
+            //    if (!isZoomed)
+            //    {
+            //        isZoomed = true;
+            //    }
+            //    else
+            //    {
+            //        isZoomed = false;
+            //    }
+            //}
 
             // Changes isZoomed when key is pressed
             // Behavior for hold to zoom
-            if (holdToZoom && !isSprinting)
-            {
-                if (Input.GetKeyDown(zoomKey))
-                {
-                    isZoomed = true;
-                }
-                else if (Input.GetKeyUp(zoomKey))
-                {
-                    isZoomed = false;
-                }
-            }
+            //if (holdToZoom && !isSprinting)
+            //{
+            //    if (Input.GetKeyDown(zoomKey))
+            //    {
+            //        isZoomed = true;
+            //    }
+            //    else if (Input.GetKeyUp(zoomKey))
+            //    {
+            //        isZoomed = false;
+            //    }
+            //}
+            if (holdToZoom && !isSprinting) isZoomed = playerInput.zoom;
 
             // Lerps camera.fieldOfView to allow for a smooth transistion
             if (isZoomed)
             {
-                //playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, zoomFOV, zoomStepTime * Time.deltaTime);
                 playerCamera.m_Lens.FieldOfView = Mathf.Lerp(playerCamera.m_Lens.FieldOfView, zoomFOV, zoomStepTime * Time.deltaTime);
             }
             else if (!isZoomed && !isSprinting)
             {
-                //playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, fov, zoomStepTime * Time.deltaTime);
                 playerCamera.m_Lens.FieldOfView = Mathf.Lerp(playerCamera.m_Lens.FieldOfView, fov, zoomStepTime * Time.deltaTime);
             }
         }
@@ -287,7 +286,6 @@ public class PlayerControllerFPS : MonoBehaviour
             if (isSprinting)
             {
                 isZoomed = false;
-                //playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, sprintFOV, sprintFOVStepTime * Time.deltaTime);
                 playerCamera.m_Lens.FieldOfView = Mathf.Lerp(playerCamera.m_Lens.FieldOfView, sprintFOV, sprintFOVStepTime * Time.deltaTime);
 
                 // Drain sprint remaining while sprinting
@@ -335,7 +333,7 @@ public class PlayerControllerFPS : MonoBehaviour
         #region Jump
 
         // Gets input and calls jump method
-        if (enableJump && Input.GetKeyDown(jumpKey) && isGrounded)
+        if (enableJump && playerInput.jump && isGrounded)
         {
             Jump();
         }
@@ -371,11 +369,6 @@ public class PlayerControllerFPS : MonoBehaviour
         {
             HeadBob();
         }
-
-        #region Fire
-        isFiring = !isSprinting && Input.GetButton("Fire1");
-        animator.SetBool("IsFiring", isFiring);
-        #endregion
     }
 
     void FixedUpdate()
@@ -385,11 +378,12 @@ public class PlayerControllerFPS : MonoBehaviour
         if (playerCanMove)
         {
             // Calculate how fast we should be moving
-            Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            //Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            Vector3 targetVelocity = new Vector3(playerInput.moveInput.x, 0f, playerInput.moveInput.y);
 
             // Checks if player is walking and isGrounded
             // Will allow head bob
-            if (Mathf.Abs(targetVelocity.x) >= 0.01f || Mathf.Abs(targetVelocity.z) >= 0.01f && isGrounded)
+            if ((Mathf.Abs(targetVelocity.x) >= 0.01f || Mathf.Abs(targetVelocity.z) >= 0.01f) && isGrounded)
             {
                 isWalking = true;
             }
@@ -399,7 +393,8 @@ public class PlayerControllerFPS : MonoBehaviour
             }
 
             // All movement calculations shile sprint is active
-            if (enableSprint && Input.GetKey(sprintKey) && sprintRemaining > 0f && !isSprintCooldown)
+            //if (enableSprint && Input.GetKey(sprintKey) && sprintRemaining > 0f && !isSprintCooldown)
+            if (enableSprint && playerInput.sprint && sprintRemaining > 0f && !isSprintCooldown)
             {
                 //print("Sprinting !!!");
                 targetVelocity = transform.TransformDirection(targetVelocity) * sprintSpeed;
@@ -417,10 +412,10 @@ public class PlayerControllerFPS : MonoBehaviour
                 {
                     isSprinting = true;
 
-                    if (isCrouched)
-                    {
-                        Crouch();
-                    }
+                    //if (isCrouched)
+                    //{
+                    //    Crouch();
+                    //}
 
                     if (hideBarWhenFull && !unlimitedSprint)
                     {
@@ -453,8 +448,6 @@ public class PlayerControllerFPS : MonoBehaviour
 
                 rb.AddForce(velocityChange, ForceMode.VelocityChange);
             }
-            animator.SetBool("IsWalking", isWalking);
-            animator.SetBool("IsSprinting", isSprinting);
         }
 
         #endregion
@@ -471,7 +464,7 @@ public class PlayerControllerFPS : MonoBehaviour
         {
             Debug.DrawRay(origin, direction * distance, Color.red);
             isGrounded = true;
-            if (animator.GetBool("IsJumping")) animator.SetBool("IsJumping", false);
+            //if (animator.GetBool("IsJumping")) animator.SetBool("IsJumping", false);
         }
         else
         {
@@ -486,37 +479,37 @@ public class PlayerControllerFPS : MonoBehaviour
         {
             rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
             isGrounded = false;
-            animator.SetBool("IsJumping", true);
+            //animator.SetBool("IsJumping", true);
         }
 
         // When crouched and using toggle system, will uncrouch for a jump
-        if (isCrouched && !holdToCrouch)
-        {
-            Crouch();
-        }
+        //if (isCrouched && !holdToCrouch)
+        //{
+        //    Crouch();
+        //}
     }
 
-    private void Crouch()
-    {
-        // Stands player up to full height
-        // Brings walkSpeed back up to original speed
-        if (isCrouched)
-        {
-            transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
-            walkSpeed /= speedReduction;
+    //private void Crouch()
+    //{
+    //    // Stands player up to full height
+    //    // Brings walkSpeed back up to original speed
+    //    if (isCrouched)
+    //    {
+    //        transform.localScale = new Vector3(originalScale.x, originalScale.y, originalScale.z);
+    //        walkSpeed /= speedReduction;
 
-            isCrouched = false;
-        }
-        // Crouches player down to set height
-        // Reduces walkSpeed
-        else
-        {
-            transform.localScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);
-            walkSpeed *= speedReduction;
+    //        isCrouched = false;
+    //    }
+    //    // Crouches player down to set height
+    //    // Reduces walkSpeed
+    //    else
+    //    {
+    //        transform.localScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);
+    //        walkSpeed *= speedReduction;
 
-            isCrouched = true;
-        }
-    }
+    //        isCrouched = true;
+    //    }
+    //}
 
     private void HeadBob()
     {
@@ -528,10 +521,10 @@ public class PlayerControllerFPS : MonoBehaviour
                 timer += Time.deltaTime * (bobSpeed + sprintSpeed);
             }
             // Calculates HeadBob speed during crouched movement
-            else if (isCrouched)
-            {
-                timer += Time.deltaTime * (bobSpeed * speedReduction);
-            }
+            //else if (isCrouched)
+            //{
+            //    timer += Time.deltaTime * (bobSpeed * speedReduction);
+            //}
             // Calculates HeadBob speed during walking
             else
             {
