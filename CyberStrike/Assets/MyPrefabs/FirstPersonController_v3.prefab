@@ -3801,9 +3801,10 @@ GameObject:
   - component: {fileID: 8176986907674656537}
   - component: {fileID: 8176986907674656538}
   - component: {fileID: 8176986907674656542}
+  - component: {fileID: 6162223197008994327}
   - component: {fileID: 8716518063726962399}
   - component: {fileID: 704283943776191995}
-  - component: {fileID: 6162223197008994327}
+  - component: {fileID: 6303360806002899425}
   m_Layer: 7
   m_Name: FirstPersonController_v3
   m_TagString: Player
@@ -3859,6 +3860,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &6162223197008994327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8176986907674656533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c250d0cef133fb488aa9b40c7fe81f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8716518063726962399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3922,7 +3935,7 @@ MonoBehaviour:
   weaponType: 0
   leftHandIK: {fileID: 3994013126136704681}
   viewPoint: {fileID: 3994013126264435462}
---- !u!114 &6162223197008994327
+--- !u!114 &6303360806002899425
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3931,9 +3944,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8176986907674656533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c250d0cef133fb488aa9b40c7fe81f3, type: 3}
+  m_Script: {fileID: 11500000, guid: f84b1fd383a50ef47aaf332dfbb47979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1001 &7774474858903212943
 PrefabInstance:
   m_ObjectHideFlags: 0

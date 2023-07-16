@@ -21,6 +21,7 @@ public class Gun : MonoBehaviour
     private LineRenderer bulletLineRenderer;
     [SerializeField] Transform firePoint;
     public Transform leftGrabPoint;
+    public float damage = 20f;
     public float fireDistance = 100f;
 
     RaycastHit hit;
@@ -53,7 +54,7 @@ public class Gun : MonoBehaviour
     private void OnEnable()
     {
         currentSpread = 0f;
-        // źâ
+
         gunState = GunState.Ready;
         lastFireTime = -100f;
     }
@@ -96,6 +97,23 @@ public class Gun : MonoBehaviour
 
         if(Physics.Raycast(firePoint.position, fireDirection, out hit, fireDistance))
         {
+            var target = hit.collider.GetComponent<IDamagable>();
+
+            if (target != null)
+            {
+                DamageMessage damageMessage;
+
+                damageMessage.damager = PlayerControllerFPS.instance.gameObject;
+                damageMessage.damage = this.damage;
+                damageMessage.hitPoint = hit.point;
+                damageMessage.hitNormal = hit.normal;
+
+                target.TakeDamage(damageMessage);
+            }
+            else
+            {
+                // 지형물 이펙트
+            }
             hitPosition = hit.point;
         }
         else

@@ -17,6 +17,16 @@ using System.Net;
 [RequireComponent(typeof(Rigidbody), typeof(PlayerInput), typeof(Collider))]
 public class PlayerControllerFPS : MonoBehaviour
 {
+    private static PlayerControllerFPS m_instance;
+
+    public static PlayerControllerFPS instance
+    {
+        get
+        {
+            return m_instance;
+        }
+    }
+
     private Rigidbody rb;
     private PlayerInput playerInput;
     private Animator animator;
@@ -134,6 +144,9 @@ public class PlayerControllerFPS : MonoBehaviour
 
     private void Awake()
     {
+        if (m_instance == null) m_instance = this;
+        else if (m_instance != this) Destroy(gameObject);
+
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
