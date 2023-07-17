@@ -29,7 +29,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SlimeWalkFWD
+  m_Name: BeholderWalkFWD
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -43,7 +43,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f9fe172521bda3d479712607c1d1ac62, type: 2}
+  m_Motion: {fileID: 7400000, guid: 52163a986c0268e42b66e34babf58e9b, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -81,7 +81,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SlimeAttack2
+  m_Name: BeholderAttack01
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -95,7 +95,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: bc94b7ea3ecf47e4b9219cffac231653, type: 2}
+  m_Motion: {fileID: 7400000, guid: 957316d55b8dcea47844fa97caf35e0e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -157,7 +157,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Slime Animator
+  m_Name: Beholder Animator
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Speed
@@ -204,7 +204,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SlimeGetHit
+  m_Name: BeholderGetHit
   m_Speed: 1
   m_CycleOffset: 0.1
   m_Transitions:
@@ -219,7 +219,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0d955f7c9aa895447bf535d9534fed76, type: 2}
+  m_Motion: {fileID: 7400000, guid: c3972acc77b094244b0d892cace72484, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -246,7 +246,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: bdc6b0820fc642044a3c117a81bbad8e, type: 2}
+  m_Motion: {fileID: 7400000, guid: 3334e22230342b549a0d4e5f4153b169, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -284,7 +284,7 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: -20, y: 140, z: 0}
+  m_AnyStatePosition: {x: -50, y: 140, z: 0}
   m_EntryPosition: {x: 240, y: 200, z: 0}
   m_ExitPosition: {x: 700, y: 360, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
@@ -318,7 +318,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SlimeDie
+  m_Name: BeholderDie
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -331,7 +331,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 2050ce55a2104294fb2d52ebaa6437cc, type: 2}
+  m_Motion: {fileID: 7400000, guid: 13c5da4960b962c4e9e316401c72711d, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
