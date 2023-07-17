@@ -1,4 +1,3 @@
-//using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,6 +58,7 @@ public class Enemy : LivingEntity
     private void Update()
     {
         if (isDead) return;
+        print("is stopped? " + agent.isStopped + ", State is : " + state);
         if (state == State.Tracking &&
             Vector3.Distance(targetEntity.transform.position, transform.position) <= agent.stoppingDistance)
         {
@@ -84,7 +84,7 @@ public class Enemy : LivingEntity
         {
             //var direction = transform.forward;
             //var deltaDistance = agent.velocity.magnitude * Time.fixedDeltaTime;
-
+            // 공격
         }
     }
 
@@ -102,18 +102,23 @@ public class Enemy : LivingEntity
     }
     public void DisableAttack()
     {
+        print("Disable attack");
         state = State.Tracking;
         agent.isStopped = false;
+    }
+    public void Idling()
+    {
+        state = State.Patrol;
     }
     public override void Die()
     {
         base.Die();
 
-
         agent.enabled = false;
 
         animator.applyRootMotion = true;
-        animator.SetTrigger("Die");
+        //animator.SetTrigger("Die");
+        animator.SetBool("IsDead", true);
 
         GetComponent<Collider>().enabled = false;
         //
@@ -132,6 +137,7 @@ public class Enemy : LivingEntity
                 }
 
                 agent.SetDestination(targetEntity.transform.position);
+                agent.isStopped = false;
             }
             else
             {
@@ -147,6 +153,7 @@ public class Enemy : LivingEntity
                 {
                     var patrolPosition = GetRandomPointOnNavMesh(transform.position, 20f, NavMesh.AllAreas);
                     agent.SetDestination(patrolPosition);
+                    agent.isStopped = false;
                 }
 
                 var colliders = Physics.OverlapSphere(transform.position, 100f, whatIsTarget);
@@ -170,8 +177,17 @@ public class Enemy : LivingEntity
     {
         base.TakeDamage(damageMessage);
 
+        if (isDead) return;
+
+        // 공격 중이 아니면 피격 애니메이션
+        if (state != State.AttackBegin && state != State.Attacking)
+        {
+            DisableAttack();
+            animator.ResetTrigger("Hit");
+            animator.SetTrigger("Hit");
+        }
         if (targetEntity == null) targetEntity = damageMessage.damager.GetComponent<LivingEntity>();
-        print("Enemy hit! hp is : " + this.health);
+        //print("Enemy hit! hp is : " + this.health);
         //
     }
 }

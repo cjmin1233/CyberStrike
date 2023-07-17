@@ -10169,6 +10169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 6889001563221563038}
   leftGrabPoint: {fileID: 7198123311871514311}
+  damage: 20
   fireDistance: 100
   timeBetFire: 0.12
   reloadTime: 2
