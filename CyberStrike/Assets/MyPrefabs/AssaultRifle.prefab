@@ -10171,10 +10171,10 @@ MonoBehaviour:
   leftGrabPoint: {fileID: 7198123311871514311}
   damage: 20
   fireDistance: 100
-  timeBetFire: 0.12
+  timeBetFire: 0.08
   reloadTime: 2
-  maxSpread: 3
-  stability: 1
+  maxSpread: 1
+  stability: 3
   restoreFromRecoilSpeed: 2
   muzzleFlashEffect: {fileID: 5600592902389497182}
   shotClip: {fileID: 8300000, guid: 08f78eba48bb21c44ac5a74ca84efc83, type: 3}
