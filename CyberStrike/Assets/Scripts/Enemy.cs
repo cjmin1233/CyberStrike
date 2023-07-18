@@ -24,7 +24,6 @@ public class Enemy : LivingEntity
         Attacking
     }
     private State state;
-
     NavMeshAgent agent;
     Rigidbody rb;
     Animator animator;
@@ -43,7 +42,6 @@ public class Enemy : LivingEntity
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
-
         agent.speed = speed;
     }
     public void Setup(float health)

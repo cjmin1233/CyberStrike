@@ -43,6 +43,8 @@ public class Gun : MonoBehaviour
     [SerializeField] ParticleSystem muzzleFlashEffect;
     [SerializeField] AudioClip shotClip;
     #endregion
+
+    [SerializeField] private float lineSpeed;
     private void Awake()
     {
         bulletLineRenderer = GetComponent<LineRenderer>();
@@ -78,7 +80,7 @@ public class Gun : MonoBehaviour
 
             lastFireTime = Time.time;
 
-            Shot(fireDirection);
+            Shot(fireDirection.normalized);
         }
     }
     public void Shot(Vector3 fireDirection)
@@ -101,6 +103,7 @@ public class Gun : MonoBehaviour
 
             if (target != null)
             {
+                // 생명체 타격
                 DamageMessage damageMessage;
 
                 damageMessage.damager = PlayerControllerFPS.instance.gameObject;
@@ -113,6 +116,8 @@ public class Gun : MonoBehaviour
             else
             {
                 // 지형물 이펙트
+                //print("Normal vector is: " + hit.normal);
+                //EffectManager.instance.PlayHitEffect(hit.point, hit.normal, EffectManager.EffectType.Flesh);
             }
             hitPosition = hit.point;
         }
@@ -129,14 +134,43 @@ public class Gun : MonoBehaviour
         muzzleFlashEffect.Play();
         gunAudioPlayer.PlayOneShot(shotClip);
 
+        /*
         bulletLineRenderer.SetPosition(0, firePoint.position);
         bulletLineRenderer.SetPosition(1, hitPosition);
         bulletLineRenderer.enabled = true;
-
         //yield return new WaitForFixedUpdate();
-        yield return new WaitForSeconds(Time.fixedDeltaTime);
+        yield return new WaitForFixedUpdate();
+        bulletLineRenderer.SetPosition(0, firePoint.position + (hitPosition - firePoint.position).normalized * lineSpeed * Time.fixedDeltaTime);
+        yield return new WaitForFixedUpdate();
+        bulletLineRenderer.enabled = false;*/
 
-        bulletLineRenderer.enabled = false;
+        //
+        
+        var lineEffect = EffectManager.instance.GetFromPool((int)EffectManager.EffectType.Line);
+        var lr = lineEffect.GetComponent<LineRenderer>();
+        lr.SetPosition(0, firePoint.position);
+        lr.SetPosition(1, hitPosition);
+
+        lineEffect.SetActive(true);
+
+        Vector3 direction = hitPosition - firePoint.position;
+        //yield return new WaitForFixedUpdate();
+        //yield return null;
+        //lr.SetPosition(0, firePoint.position + lineSpeed * Time.deltaTime * direction.normalized);
+        //yield return null;
+
+        //
+        float timer = 0f;
+        float duration = direction.magnitude / lineSpeed;
+        duration = Mathf.Clamp(duration, 0f, Time.fixedDeltaTime);
+        while (timer <= duration)
+        {
+            yield return null;
+            timer += Time.deltaTime;
+            lr.SetPosition(0, firePoint.position + lineSpeed * timer * direction.normalized);
+        }
+
+        EffectManager.instance.Add2Pool((int)EffectManager.EffectType.Line, lineEffect);
     }
 
     private void Update()

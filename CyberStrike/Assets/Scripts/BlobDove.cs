@@ -1,0 +1,111 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BlobDove : Blob
+{
+    //protected override void Update()
+    //{
+    //    base.Update();
+    //}
+    protected override void StateEnter()
+    {
+        switch (curState)
+        {
+            case BlobState.Idle:
+                break;
+            case BlobState.Wandering:
+                targetPos = transform.position;
+                EssManager.instance.TickEvent += FoodFinding;
+                break;
+            case BlobState.FoodTracing:
+                targetPos = foundFood.transform.position;
+                agent.SetDestination(targetPos);
+
+                break;
+            case BlobState.Eating:
+                foundFood?.BlobRegistration(this);
+                //if(!foundFood) foundFood.BlobRegistration(this);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    protected override void StateUpdate()
+    {
+        switch (curState)
+        {
+            case BlobState.Idle:
+                break;
+            case BlobState.Wandering:
+                if (Vector3.Distance(transform.position,
+                    targetPos) < 0.1f)
+                {
+                    var randCircle = Random.insideUnitCircle;
+                    targetPos = new Vector3(randCircle.x, 0f, randCircle.y) * WanderingRange;
+                    agent.SetDestination(targetPos);
+                }
+                break;
+            case BlobState.FoodTracing:                
+                break;
+            case BlobState.Eating:
+                break;
+            default:
+                break;
+        }
+    }
+    protected override void StateExit()
+    {
+        switch (curState)
+        {
+            case BlobState.Idle:
+                break;
+            case BlobState.Wandering:
+                EssManager.instance.TickEvent -= FoodFinding;
+                break;
+            case BlobState.FoodTracing:
+                break;
+            case BlobState.Eating:
+                break;
+            default:
+                break;
+        }
+    }
+
+    protected override bool TransitionCheck()
+    {
+        switch (curState)
+        {
+            case BlobState.Idle:
+                nextState = BlobState.Wandering;
+                return true;
+            case BlobState.Wandering:
+                if (foundFood != null)
+                {
+                    nextState = BlobState.FoodTracing;
+                    return true;
+                }
+                break;
+            case BlobState.FoodTracing:
+                if (Vector3.Distance(transform.position,
+                    targetPos) < 0.5f)
+                {
+                    nextState = BlobState.Eating;
+                    return true;
+                }
+                break;
+            case BlobState.Eating:
+                if (foundFood == null)
+                {
+                    nextState = BlobState.Idle;
+                    return true;
+                }
+                break;
+            default:
+                break;
+        }
+        return false;
+    }
+}
