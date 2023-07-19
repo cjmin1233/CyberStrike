@@ -18,7 +18,7 @@ public class Gun : MonoBehaviour
     }
     public GunState gunState { get; private set; }
 
-    private LineRenderer bulletLineRenderer;
+    //private LineRenderer bulletLineRenderer;
     [SerializeField] Transform firePoint;
     public Transform leftGrabPoint;
     public float damage = 20f;
@@ -47,9 +47,9 @@ public class Gun : MonoBehaviour
     [SerializeField] private float lineSpeed;
     private void Awake()
     {
-        bulletLineRenderer = GetComponent<LineRenderer>();
-        bulletLineRenderer.positionCount = 2;
-        bulletLineRenderer.enabled = false;
+        //bulletLineRenderer = GetComponent<LineRenderer>();
+        //bulletLineRenderer.positionCount = 2;
+        //bulletLineRenderer.enabled = false;
 
         gunAudioPlayer = GetComponent<AudioSource>();
     }

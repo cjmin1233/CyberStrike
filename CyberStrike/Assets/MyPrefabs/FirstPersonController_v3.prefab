@@ -3837,7 +3837,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8176986907674656533}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: af47645b8c6016441a60be5853101d87, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -3955,6 +3955,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3994013125392543911}
     m_Modifications:
+    - target: {fileID: 3749367615769265455, guid: 1f08b802a5fa5ff4bb49f6acdf3cea4c, type: 3}
+      propertyPath: lineSpeed
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3749367615769265455, guid: 1f08b802a5fa5ff4bb49f6acdf3cea4c, type: 3}
+      propertyPath: timeBetFire
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5600309994735631864, guid: 1f08b802a5fa5ff4bb49f6acdf3cea4c, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5600592902389497182, guid: 1f08b802a5fa5ff4bb49f6acdf3cea4c, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5600592902389497182, guid: 1f08b802a5fa5ff4bb49f6acdf3cea4c, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7774474858294918408, guid: 1f08b802a5fa5ff4bb49f6acdf3cea4c, type: 3}
       propertyPath: m_Name
       value: AssaultRifle
