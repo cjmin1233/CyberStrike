@@ -2,13 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlobDove : Blob
+public class BlobHawk : Blob
 {
-    public void QuitEating()
-    {
-        FinishEating();
-
-    }
     protected override void StateEnter()
     {
         switch (curState)
@@ -51,7 +46,7 @@ public class BlobDove : Blob
                     agent.SetDestination(targetPos);
                 }
                 break;
-            case BlobState.FoodTracing:                
+            case BlobState.FoodTracing:
                 break;
             case BlobState.Eating:
                 break;

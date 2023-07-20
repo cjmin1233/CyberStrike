@@ -150,8 +150,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blob Hawk
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6328111431006863756, guid: a6fd211dc2f17254aadf956ce49310fc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a6fd211dc2f17254aadf956ce49310fc, type: 3}
+--- !u!1 &4218563389062037626 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8260434068363929807, guid: a6fd211dc2f17254aadf956ce49310fc, type: 3}
+  m_PrefabInstance: {fileID: 5199876403002026165}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5680068615732719416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4218563389062037626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2863889a30c87c74b99ca6abdb2ccffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!4 &6564279267734234875 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1382795570944249422, guid: a6fd211dc2f17254aadf956ce49310fc, type: 3}

@@ -30,9 +30,16 @@ public abstract class Blob : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        EssManager.instance.FoodConsumingEvent += FoodConsume;
     }
     protected virtual void Update()
     {
+        transform.localScale = Vector3.one * (energy * Scaler + MinScale);
+
+        if (energy >= 100)
+        {
+            Duplication();
+        }
         curState = nextState;
 
         if (isStateChanged) StateEnter();
@@ -64,11 +71,47 @@ public abstract class Blob : MonoBehaviour
     }
     public void EatFood()
     {
+        if (this.GetType() == typeof(BlobDove) && foundFood.isHawkEating)
+        {
+            FinishEating();
+            return;
+        }
+        else if (this.GetType() == typeof(BlobHawk) && foundFood.hawkCount >= 2) return;
         energy++;
-        transform.localScale = Vector3.one * (energy * Scaler + MinScale);
     }
     public void FinishEating()
     {
         foundFood = null;
+    }
+    private void FoodConsume()
+    {
+        energy-=1;
+        if (energy <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+    protected virtual void OnDestroy()
+    {
+        EssManager.instance.FoodConsumingEvent -= FoodConsume;
+    }
+    private void Duplication()
+    {
+        var rand = Random.Range(0f, Mathf.PI * 2f);
+        var rand_x = Mathf.Cos(rand);
+        var rand_y = Mathf.Sin(rand);
+
+        var randPos = new Vector3(rand_x, 0f, rand_y) * WanderingRange;
+        if (this.GetType() == typeof(BlobDove))
+        {
+            Instantiate(EssManager.instance.blobDove, 
+                transform.position + randPos,
+                Quaternion.identity);
+        }
+        //if (this.GetType() == typeof(BlobDove))
+        //{
+        //    Instantiate(EssManager.instance.blobDove)
+        //}
+        energy -= 50;
     }
 }

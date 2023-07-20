@@ -9,6 +9,8 @@ public class Food : MonoBehaviour
 
     public List<Blob> blobs;
 
+    public bool isHawkEating = false;
+    public int hawkCount = 0;
     private void Awake()
     {
         blobs = new List<Blob>();
@@ -16,9 +18,20 @@ public class Food : MonoBehaviour
     }
     private void FoodConsume()
     {
+        isHawkEating = false;
+        hawkCount = 0;
+        foreach(var blob in blobs)
+        {
+            if (blob.GetType() == typeof(BlobHawk))
+            {
+                isHawkEating = true;
+                hawkCount++;
+            }
+        }
         foreach (var blob in blobs)
         {
             blob.EatFood();
+            if (isHawkEating && blob.GetType() == typeof(BlobDove)) continue;
             energy--;
             if (energy <= 0)
             {

@@ -177,5 +177,8 @@ public class Gun : MonoBehaviour
     {
         currentSpread = Mathf.SmoothDamp(currentSpread, 0f, ref currenSpreadVelocity, 1f / restoreFromRecoilSpeed);
         currentSpread = Mathf.Clamp(currentSpread, 0f, maxSpread);
+
+        // 조준선 크기 조정
+        UiManager.instance.UpdateCrosshairSpread(currentSpread, maxSpread);
     }
 }

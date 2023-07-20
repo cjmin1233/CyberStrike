@@ -15,6 +15,7 @@ public class EssManager : MonoBehaviour
     public delegate void TickRate();
     public event TickRate TickEvent;
     public event TickRate FoodEatingEvent;
+    public event TickRate FoodConsumingEvent;
 
     private const float width = 50f;
     private void Awake()
@@ -26,10 +27,6 @@ public class EssManager : MonoBehaviour
 
         StartCoroutine(Timer());
         StartCoroutine(FoodEatingTimer());
-    }
-    private void Update()
-    {
-        
     }
     //public Vector3 NearestFood(Vector3 pos)
     //{
@@ -54,8 +51,10 @@ public class EssManager : MonoBehaviour
             var foodObj = Instantiate(food, new Vector3(xrand, 0f, zrand), Quaternion.identity);
 
             foodList.Add(foodObj.transform);
-            
-            if(TickEvent!=null) TickEvent();
+
+            if (TickEvent != null) TickEvent();
+            if (FoodConsumingEvent != null) FoodConsumingEvent();
+
             yield return new WaitForSeconds(1f);
         }
     }
@@ -68,4 +67,5 @@ public class EssManager : MonoBehaviour
         }
 
     }
+
 }
