@@ -30,8 +30,12 @@ public class Food : MonoBehaviour
         }
         foreach (var blob in blobs)
         {
+            if (isHawkEating && blob.GetType() == typeof(BlobDove))
+            {
+                blob.FinishEating();
+                continue;
+            }
             blob.EatFood();
-            if (isHawkEating && blob.GetType() == typeof(BlobDove)) continue;
             energy--;
             if (energy <= 0)
             {

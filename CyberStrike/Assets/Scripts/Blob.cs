@@ -13,6 +13,17 @@ public enum BlobState
 
 public abstract class Blob : MonoBehaviour
 {
+    protected static Vector3 GetRandomPointOnNavmesh(Vector3 origin)
+    {
+        Vector3 randomPoint = Vector3.zero;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(origin + Random.insideUnitSphere * WanderingRange, out hit, WanderingRange, NavMesh.AllAreas))
+        {
+            randomPoint = hit.position;
+        }
+        randomPoint.y = 0f;
+        return randomPoint;
+    }
     private const float Scaler = 0.01f;
     private const float MinScale = 0.5f;
 
@@ -31,6 +42,9 @@ public abstract class Blob : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         EssManager.instance.FoodConsumingEvent += FoodConsume;
+
+        if (this is BlobDove) EssManager.instance.doveCount++;
+        else if (this is BlobHawk) EssManager.instance.hawkCount++;
     }
     protected virtual void Update()
     {
@@ -65,18 +79,34 @@ public abstract class Blob : MonoBehaviour
 
         if (hits.Length > 0)
         {
-            foundFood = hits[0].transform.GetComponent<Food>();
+            foreach (var _ in hits)
+            {
+                var food = _.transform.GetComponent<Food>();
+                if (!food) continue;
+                // dove는 hawk가 먹고 있으면 노터치
+                if (GetType() == typeof(BlobDove) && food.hawkCount > 0) foundFood = null;
+                else
+                {
+                    foundFood = food;
+                    break;
+                }
+            }
+            //var food = hits[0].transform.GetComponent<Food>();
+            //if (!food) return;
+            //// dove는 hawk가 먹고 있으면 노터치
+            //if (GetType() == typeof(BlobDove) && food.hawkCount > 0) foundFood = null;
+            //else foundFood = food;
         }
         else foundFood = null;
     }
     public void EatFood()
     {
-        if (this.GetType() == typeof(BlobDove) && foundFood.isHawkEating)
-        {
-            FinishEating();
-            return;
-        }
-        else if (this.GetType() == typeof(BlobHawk) && foundFood.hawkCount >= 2) return;
+        //if (this.GetType() == typeof(BlobDove) && foundFood.isHawkEating)
+        //{
+        //    FinishEating();
+        //    return;
+        //}
+        if (this is BlobHawk && foundFood.hawkCount >= 2) return;
         energy++;
     }
     public void FinishEating()
@@ -97,21 +127,24 @@ public abstract class Blob : MonoBehaviour
     }
     private void Duplication()
     {
-        var rand = Random.Range(0f, Mathf.PI * 2f);
-        var rand_x = Mathf.Cos(rand);
-        var rand_y = Mathf.Sin(rand);
+        //var rand = Random.Range(0f, Mathf.PI * 2f);
+        //var rand_x = Mathf.Cos(rand);
+        //var rand_y = Mathf.Sin(rand);
 
-        var randPos = new Vector3(rand_x, 0f, rand_y) * WanderingRange;
+        //var randPos = new Vector3(rand_x, 0f, rand_y) * WanderingRange;
+        var randPos = GetRandomPointOnNavmesh(transform.position);
         if (this.GetType() == typeof(BlobDove))
         {
             Instantiate(EssManager.instance.blobDove, 
-                transform.position + randPos,
+                randPos,
                 Quaternion.identity);
         }
-        //if (this.GetType() == typeof(BlobDove))
-        //{
-        //    Instantiate(EssManager.instance.blobDove)
-        //}
+        if (this.GetType() == typeof(BlobHawk))
+        {
+            Instantiate(EssManager.instance.blobHawk,
+                randPos,
+                Quaternion.identity);
+        }
         energy -= 50;
     }
 }

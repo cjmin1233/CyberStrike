@@ -304,10 +304,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fbd84d4132e77c43b5ea89e973d1c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 6889001563221563038}
   leftGrabPoint: {fileID: 7198123311871514311}
+  firePoint: {fileID: 6889001563221563038}
   damage: 20
   fireDistance: 100
+  magCapacity: 30
   timeBetFire: 0.08
   reloadTime: 2
   maxSpread: 1
@@ -315,6 +316,8 @@ MonoBehaviour:
   restoreFromRecoilSpeed: 2
   muzzleFlashEffect: {fileID: 3593392588971727985}
   shotClip: {fileID: 8300000, guid: 08f78eba48bb21c44ac5a74ca84efc83, type: 3}
+  magInClip: {fileID: 8300000, guid: 76d167f0d7a36f640b19a72ffcabcc76, type: 3}
+  reloadClip: {fileID: 8300000, guid: 31535b089e5146b4983a873fee189c51, type: 3}
   lineSpeed: 50
 --- !u!1001 &2183258973524811453
 PrefabInstance:

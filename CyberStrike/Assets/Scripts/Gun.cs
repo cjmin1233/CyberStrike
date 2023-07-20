@@ -13,21 +13,23 @@ public class Gun : MonoBehaviour
     public enum GunState
     {
         Ready,
-        Empty,
-        Reloading
+        Empty
     }
     public GunState gunState { get; private set; }
 
     //private LineRenderer bulletLineRenderer;
-    [SerializeField] Transform firePoint;
     public Transform leftGrabPoint;
-    public float damage = 20f;
+    [SerializeField] Transform firePoint;
+    [SerializeField] private float damage = 20f;
     public float fireDistance = 100f;
+
+    [SerializeField] private int magCapacity = 30;
+    private int magAmmo;
 
     RaycastHit hit;
 
-    public float timeBetFire;
-    public float reloadTime;
+    [SerializeField] private float timeBetFire;
+    [SerializeField] private float reloadTime;
 
     [Range(0f, 10f)] public float maxSpread;
     [Range(1f, 10f)] public float stability;
@@ -42,6 +44,8 @@ public class Gun : MonoBehaviour
     AudioSource gunAudioPlayer;
     [SerializeField] ParticleSystem muzzleFlashEffect;
     [SerializeField] AudioClip shotClip;
+    [SerializeField] AudioClip magInClip;
+    [SerializeField] AudioClip reloadClip;
     #endregion
 
     [SerializeField] private float lineSpeed;
@@ -52,6 +56,7 @@ public class Gun : MonoBehaviour
         //bulletLineRenderer.enabled = false;
 
         gunAudioPlayer = GetComponent<AudioSource>();
+        magAmmo = magCapacity;
     }
     private void OnEnable()
     {
@@ -64,24 +69,34 @@ public class Gun : MonoBehaviour
     {
         StopAllCoroutines();
     }
-    public void Fire(Vector3 aimPoint)
+    public bool Fire(Vector3 aimPoint)
     {
-        if(gunState==GunState.Ready&&
-            Time.time >= lastFireTime + timeBetFire)
+        if (Time.time >= lastFireTime + timeBetFire)
         {
-            var xError = GetRandomNormalDistribution(0f, currentSpread);
-            var yError = GetRandomNormalDistribution(0f, currentSpread);
+            if (gunState == GunState.Ready)
+            {
+                var xError = GetRandomNormalDistribution(0f, currentSpread);
+                var yError = GetRandomNormalDistribution(0f, currentSpread);
 
-            Vector3 fireDirection = aimPoint - firePoint.position;
-            fireDirection = Quaternion.AngleAxis(yError, Vector3.up) * fireDirection;
-            fireDirection = Quaternion.AngleAxis(xError, Vector3.right) * fireDirection;
+                Vector3 fireDirection = aimPoint - firePoint.position;
+                fireDirection = Quaternion.AngleAxis(yError, Vector3.up) * fireDirection;
+                fireDirection = Quaternion.AngleAxis(xError, Vector3.right) * fireDirection;
 
-            currentSpread += 1f / stability;
+                currentSpread += 1f / stability;
 
-            lastFireTime = Time.time;
 
-            Shot(fireDirection.normalized);
+                lastFireTime = Time.time;
+                Shot(fireDirection.normalized);
+
+                return true;
+            }
+            else if (gunState == GunState.Empty)
+            {
+                lastFireTime = Time.time;
+                print("찰칵...");
+            }
         }
+        return false;
     }
     public void Shot(Vector3 fireDirection)
     {
@@ -95,7 +110,7 @@ public class Gun : MonoBehaviour
         //    bulletLineRenderer.SetPosition(1, hit.point);
         //}
         //else bulletLineRenderer.positionCount = 0;
-        var hitPosition = Vector3.zero;
+        Vector3 hitPosition;
 
         if(Physics.Raycast(firePoint.position, fireDirection, out hit, fireDistance))
         {
@@ -128,7 +143,16 @@ public class Gun : MonoBehaviour
             hitPosition = firePoint.position + fireDirection * fireDistance;
         }
 
+        // 발사선 이펙트 시작
         StartCoroutine(ShotEffect(hitPosition));
+
+        magAmmo--;
+        print("Ammo : " + magAmmo);
+        if (magAmmo <= 0)
+        {
+            print("Ammo Empty!");
+            gunState = GunState.Empty;
+        }
     }
 
     private IEnumerator ShotEffect(Vector3 hitPosition)
@@ -182,5 +206,25 @@ public class Gun : MonoBehaviour
 
         // 조준선 크기 조정
         UiManager.instance.UpdateCrosshairSpread(currentSpread, maxSpread);
+    }
+    public bool AttemptReload()
+    {
+        // 총알이 부족한 경우 재장전 시작
+        if (magAmmo != magCapacity || gunState == GunState.Empty)
+        {
+            return true;
+        }
+        // 탄창이 충분한 경우
+        return false;
+    }
+    public void MagIn()
+    {
+        gunAudioPlayer.PlayOneShot(magInClip);
+    }
+    public void CompleteReload()
+    {
+        magAmmo = magCapacity;
+        gunState = GunState.Ready;
+        gunAudioPlayer.PlayOneShot(reloadClip);
     }
 }

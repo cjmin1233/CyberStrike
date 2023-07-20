@@ -17,19 +17,11 @@ using System.Net;
 [RequireComponent(typeof(Rigidbody), typeof(PlayerInput), typeof(Collider))]
 public class PlayerControllerFPS : MonoBehaviour
 {
-    private static PlayerControllerFPS m_instance;
-
-    public static PlayerControllerFPS instance
-    {
-        get
-        {
-            return m_instance;
-        }
-    }
+    public static PlayerControllerFPS instance { get; private set; }
 
     private Rigidbody rb;
     private PlayerInput playerInput;
-    private Animator animator;
+    private Animator playerAnimator;
 
     #region Camera Movement Variables
     [Header("-Camera-")]
@@ -130,32 +122,32 @@ public class PlayerControllerFPS : MonoBehaviour
     #endregion
 
     #region Head Bob
-    [Header("-Head Bob-"), Space(10f)]
-    public bool enableHeadBob = true;
-    public Transform joint;
-    public float bobSpeed = 10f;
-    public Vector3 bobAmount = new Vector3(.15f, .05f, 0f);
+    //[Header("-Head Bob-"), Space(10f)]
+    //public bool enableHeadBob = true;
+    //public Transform joint;
+    //public float bobSpeed = 10f;
+    //public Vector3 bobAmount = new Vector3(.15f, .05f, 0f);
 
     // Internal Variables
-    private Vector3 jointOriginalPos;
-    private float timer = 0;
+    //private Vector3 jointOriginalPos;
+    //private float timer = 0;
 
     #endregion
 
     private void Awake()
     {
-        if (m_instance == null) m_instance = this;
-        else if (m_instance != this) Destroy(gameObject);
+        if (instance == null) instance = this;
+        else if (instance != this) Destroy(gameObject);
 
         rb = GetComponent<Rigidbody>();
-        animator = GetComponentInChildren<Animator>();
+        playerAnimator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
         //crosshairObject = GetComponentInChildren<Image>();
 
         // Set internal variables
         playerCamera.m_Lens.FieldOfView = fov;
         //originalScale = transform.localScale;
-        jointOriginalPos = joint.localPosition;
+        //jointOriginalPos = joint.localPosition;
 
         if (!unlimitedSprint)
         {
@@ -218,8 +210,8 @@ public class PlayerControllerFPS : MonoBehaviour
     private void Update()
     {
         // Animator parameter update.
-        animator.SetBool("IsWalking", isWalking);
-        animator.SetBool("IsSprinting", isSprinting);
+        playerAnimator.SetBool("IsWalking", isWalking);
+        playerAnimator.SetBool("IsSprinting", isSprinting);
 
         #region Camera
 
@@ -378,10 +370,10 @@ public class PlayerControllerFPS : MonoBehaviour
 
         CheckGround();
 
-        if (enableHeadBob)
-        {
-            HeadBob();
-        }
+        //if (enableHeadBob)
+        //{
+        //    HeadBob();
+        //}
     }
 
     void FixedUpdate()
@@ -391,8 +383,7 @@ public class PlayerControllerFPS : MonoBehaviour
         if (playerCanMove)
         {
             // Calculate how fast we should be moving
-            //Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            Vector3 targetVelocity = new Vector3(playerInput.moveInput.x, 0f, playerInput.moveInput.y);
+            Vector3 targetVelocity = new(playerInput.moveInput.x, 0f, playerInput.moveInput.y);
 
             // Checks if player is walking and isGrounded
             // Will allow head bob
@@ -405,16 +396,17 @@ public class PlayerControllerFPS : MonoBehaviour
                 isWalking = false;
             }
 
-            // All movement calculations shile sprint is active
-            //if (enableSprint && Input.GetKey(sprintKey) && sprintRemaining > 0f && !isSprintCooldown)
+            targetVelocity = transform.TransformDirection(targetVelocity);
+
+            Vector3 velocityChange;
+            // All movement calculations while sprint is active
             if (enableSprint && playerInput.sprint && sprintRemaining > 0f && !isSprintCooldown)
             {
-                //print("Sprinting !!!");
-                targetVelocity = transform.TransformDirection(targetVelocity) * sprintSpeed;
+                //targetVelocity = transform.TransformDirection(targetVelocity) * sprintSpeed;
+                targetVelocity *= sprintSpeed;
 
-                // Apply a force that attempts to reach our target velocity
-                Vector3 velocity = rb.velocity;
-                Vector3 velocityChange = (targetVelocity - velocity);
+                //// Apply a force that attempts to reach our target velocity
+                velocityChange = (targetVelocity - rb.velocity);
                 velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
                 velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
                 velocityChange.y = 0;
@@ -432,17 +424,16 @@ public class PlayerControllerFPS : MonoBehaviour
 
                     if (hideBarWhenFull && !unlimitedSprint)
                     {
-                        sprintBarCG.alpha += 5 * Time.deltaTime;
+                        //sprintBarCG.alpha += 5 * Time.deltaTime;
+                        sprintBarCG.alpha += 5 * Time.fixedDeltaTime;
                     }
                 }
 
-                rb.AddForce(velocityChange, ForceMode.VelocityChange);
+                //rb.AddForce(velocityChange, ForceMode.VelocityChange);
             }
             // All movement calculations while walking
             else
             {
-                //print(sprintRemaining);
-                //print(isSprintCooldown);
                 isSprinting = false;
 
                 if (hideBarWhenFull && sprintRemaining == sprintDuration)
@@ -450,17 +441,24 @@ public class PlayerControllerFPS : MonoBehaviour
                     sprintBarCG.alpha -= 3 * Time.deltaTime;
                 }
 
-                targetVelocity = transform.TransformDirection(targetVelocity) * walkSpeed;
+                //targetVelocity = transform.TransformDirection(targetVelocity) * walkSpeed;
+                targetVelocity *= walkSpeed;
 
-                // Apply a force that attempts to reach our target velocity
-                Vector3 velocity = rb.velocity;
-                Vector3 velocityChange = (targetVelocity - velocity);
-                velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
-                velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
-                velocityChange.y = 0;
+                //// Apply a force that attempts to reach our target velocity
+                //Vector3 velocityChange = (targetVelocity - rb.velocity);
+                //velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
+                //velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
+                //velocityChange.y = 0;
 
-                rb.AddForce(velocityChange, ForceMode.VelocityChange);
+                //rb.AddForce(velocityChange, ForceMode.VelocityChange);
             }
+            // Apply a force that attempts to reach our target velocity
+            velocityChange = (targetVelocity - rb.velocity);
+            velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
+            velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
+            velocityChange.y = 0;
+
+            rb.AddForce(velocityChange, ForceMode.VelocityChange);
         }
 
         #endregion
@@ -524,35 +522,35 @@ public class PlayerControllerFPS : MonoBehaviour
     //    }
     //}
 
-    private void HeadBob()
-    {
-        if (isWalking)
-        {
-            // Calculates HeadBob speed during sprint
-            if (isSprinting)
-            {
-                timer += Time.deltaTime * (bobSpeed + sprintSpeed);
-            }
-            // Calculates HeadBob speed during crouched movement
-            //else if (isCrouched)
-            //{
-            //    timer += Time.deltaTime * (bobSpeed * speedReduction);
-            //}
-            // Calculates HeadBob speed during walking
-            else
-            {
-                timer += Time.deltaTime * bobSpeed;
-            }
-            // Applies HeadBob movement
-            joint.localPosition = new Vector3(jointOriginalPos.x + Mathf.Sin(timer) * bobAmount.x, jointOriginalPos.y + Mathf.Sin(timer) * bobAmount.y, jointOriginalPos.z + Mathf.Sin(timer) * bobAmount.z);
-        }
-        else
-        {
-            // Resets when play stops moving
-            timer = 0;
-            joint.localPosition = new Vector3(Mathf.Lerp(joint.localPosition.x, jointOriginalPos.x, Time.deltaTime * bobSpeed), Mathf.Lerp(joint.localPosition.y, jointOriginalPos.y, Time.deltaTime * bobSpeed), Mathf.Lerp(joint.localPosition.z, jointOriginalPos.z, Time.deltaTime * bobSpeed));
-        }
-    }
+    //private void HeadBob()
+    //{
+    //    if (isWalking)
+    //    {
+    //        // Calculates HeadBob speed during sprint
+    //        if (isSprinting)
+    //        {
+    //            timer += Time.deltaTime * (bobSpeed + sprintSpeed);
+    //        }
+    //        // Calculates HeadBob speed during crouched movement
+    //        //else if (isCrouched)
+    //        //{
+    //        //    timer += Time.deltaTime * (bobSpeed * speedReduction);
+    //        //}
+    //        // Calculates HeadBob speed during walking
+    //        else
+    //        {
+    //            timer += Time.deltaTime * bobSpeed;
+    //        }
+    //        // Applies HeadBob movement
+    //        joint.localPosition = new Vector3(jointOriginalPos.x + Mathf.Sin(timer) * bobAmount.x, jointOriginalPos.y + Mathf.Sin(timer) * bobAmount.y, jointOriginalPos.z + Mathf.Sin(timer) * bobAmount.z);
+    //    }
+    //    else
+    //    {
+    //        // Resets when play stops moving
+    //        timer = 0;
+    //        joint.localPosition = new Vector3(Mathf.Lerp(joint.localPosition.x, jointOriginalPos.x, Time.deltaTime * bobSpeed), Mathf.Lerp(joint.localPosition.y, jointOriginalPos.y, Time.deltaTime * bobSpeed), Mathf.Lerp(joint.localPosition.z, jointOriginalPos.z, Time.deltaTime * bobSpeed));
+    //    }
+    //}
 }
 
 

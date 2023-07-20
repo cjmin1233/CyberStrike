@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EssManager : MonoBehaviour
 {
@@ -18,13 +19,20 @@ public class EssManager : MonoBehaviour
     public event TickRate FoodConsumingEvent;
 
     private const float width = 50f;
+
+    [SerializeField] private Slider DoveSlider;
+    [SerializeField] private Slider HawkSlider;
+
+    public int doveCount { get; set; }
+    public int hawkCount { get; set; }
     private void Awake()
     {
         if (!instance) instance = this;
         else if (instance != this) Destroy(gameObject);
         
         foodList = new List<Transform>();
-
+        doveCount = 0;
+        hawkCount = 0;
         StartCoroutine(Timer());
         StartCoroutine(FoodEatingTimer());
     }
@@ -55,6 +63,7 @@ public class EssManager : MonoBehaviour
             if (TickEvent != null) TickEvent();
             if (FoodConsumingEvent != null) FoodConsumingEvent();
 
+            UpdateBlobSlider();
             yield return new WaitForSeconds(1f);
         }
     }
@@ -67,5 +76,15 @@ public class EssManager : MonoBehaviour
         }
 
     }
+    private void UpdateBlobSlider()
+    {
+        var totalBlobs = doveCount + hawkCount;
+        if (totalBlobs <= 0) return;
+        //print(totalBlobs + "," + doveCount + "," + hawkCount);
 
+        var doveRatio = (float)doveCount / totalBlobs;
+        var hawkRatio = (float)hawkCount / totalBlobs;
+        DoveSlider.value = doveRatio;
+        HawkSlider.value = hawkRatio;
+    }
 }

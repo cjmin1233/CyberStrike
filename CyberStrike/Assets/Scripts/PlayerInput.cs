@@ -7,6 +7,7 @@ public class PlayerInput : MonoBehaviour
     string fireButtonName = "Fire1";
     string jumpButtonName = "Jump";
     string sprintButtonName = "Sprint";
+    string reloadButtonName = "Reload";
     string zoomButtonName = "Zoom";
     string moveHorizontalAxisName = "Horizontal";
     string moveVerticalAxisName = "Vertical";
@@ -18,6 +19,7 @@ public class PlayerInput : MonoBehaviour
     public bool fire { get; private set; }
     public bool jump { get; private set; }
     public bool sprint { get; private set; }
+    public bool reload { get; private set; }
     public bool zoom { get; private set; }
 
     private void Update()
@@ -28,6 +30,7 @@ public class PlayerInput : MonoBehaviour
         jump = Input.GetButtonDown(jumpButtonName);
         fire = Input.GetButton(fireButtonName);
         sprint = Input.GetButton(sprintButtonName);
+        reload = Input.GetButton(reloadButtonName);
         zoom = Input.GetButton(zoomButtonName);
     }
 }

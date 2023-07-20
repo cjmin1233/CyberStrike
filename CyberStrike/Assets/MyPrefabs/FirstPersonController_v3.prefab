@@ -2098,6 +2098,7 @@ GameObject:
   - component: {fileID: 6146230012445758515}
   - component: {fileID: 6146230012438281118}
   - component: {fileID: 6146230012438281116}
+  - component: {fileID: 4711444318092775974}
   m_Layer: 0
   m_Name: PolyartCharacter
   m_TagString: Untagged
@@ -2146,8 +2147,10 @@ Animator:
   m_StabilizeFeet: 0
   m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
     are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'LowerArm_Right'\n\tTransform 'LowerArm_Right'\n\tTransform
-    'UpperArm_Right'\n\tTransform 'Head'\n\tFrom animation clip 'Run_guard_AR_test'\n\tFrom
+    by Humanoid clips.\n\tTransform 'Head'\n\tTransform 'LowerArm_Right'\n\tTransform
+    'Neck'\n\tTransform 'Hips'\n\tTransform 'UpperArm_Right'\n\tTransform 'Head'\n\tTransform
+    'LowerArm_Right'\n\tTransform 'Neck'\n\tTransform 'Hips'\n\tTransform 'UpperArm_Right'\n\tand
+    more ...\n\tFrom animation clip 'Run_guard_AR_test'\n\tFrom animation clip 'Run_guard_AR_test'\n\tFrom
     animation clip 'Run_guard_AR_test'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -2246,6 +2249,48 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &4711444318092775974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6146230012438505393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6487c548b395b7b449a506f55b3c6afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onReloadComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 704283943776191995}
+        m_TargetAssemblyTypeName: PlayerShooter, Assembly-CSharp
+        m_MethodName: CompleteReload
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onMagIn:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 704283943776191995}
+        m_TargetAssemblyTypeName: PlayerShooter, Assembly-CSharp
+        m_MethodName: MagIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6146230012438505395
 GameObject:
   m_ObjectHideFlags: 0
@@ -3911,10 +3956,6 @@ MonoBehaviour:
   sprintBar: {fileID: 8176986906788328407}
   enableJump: 1
   jumpPower: 5
-  enableHeadBob: 1
-  joint: {fileID: 8176986906169238275}
-  bobSpeed: 2
-  bobAmount: {x: 0, y: 0.01, z: 0}
 --- !u!114 &704283943776191995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3929,7 +3970,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
   - {fileID: 738078343}
-  weaponType: 0
+  curWeaponType: 0
   leftHandIK: {fileID: 3994013126136704681}
   viewPoint: {fileID: 3994013126264435462}
 --- !u!114 &6303360806002899425

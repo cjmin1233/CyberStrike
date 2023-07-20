@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using Cinemachine;
+using System;
 
 public class PlayerShooter : MonoBehaviour
 {
@@ -22,14 +23,17 @@ public class PlayerShooter : MonoBehaviour
 
     Gun gun;
     [SerializeField] GameObject[] weapons;
-    public WeaponType weaponType;
+    public WeaponType curWeaponType;
     [SerializeField] TwoBoneIKConstraint leftHandIK;
 
     RaycastHit aimHit;
     Ray camRay;
     [SerializeField] Transform viewPoint;
     Vector3 aimPoint;
-    AimState aimState;
+    AimState aimState = AimState.HipFire;
+
+    //private bool isReloading = false;
+    //[SerializeField] private ReloadState reloadState
     private void Awake()
     {
         playerAnimator = GetComponentInChildren<Animator>();
@@ -47,14 +51,40 @@ public class PlayerShooter : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (playerInput.fire && aimState == AimState.HipFire) Shoot();
-        else playerAnimator.SetBool("IsFiring", false);
+        if (aimState == AimState.HipFire)
+        {
+            if (playerInput.fire) Shoot();
+            else if (playerInput.reload) Reload();
+        }
+        //if (playerInput.fire && aimState == AimState.HipFire) Shoot();
+        //else if (playerInput.reload && aimState != AimState.Sprinting) Reload();
+        //else playerAnimator.SetBool("IsFiring", false);
+    }
+
+    private void Reload()
+    {
+        if (gun.AttemptReload())
+        {
+            playerAnimator.SetBool("IsReloading", true);
+            //aimState = AimState.Reloading;
+            //isReloading = true;
+        }
+    }
+    public void MagIn()
+    {
+        gun.MagIn();
+    }
+    public void CompleteReload()
+    {
+        print("장전 완료!");
+        gun.CompleteReload();
+        playerAnimator.SetBool("IsReloading", false);
     }
     public void WeaponSetup()
     {
         for(int i = 0; i < weapons.Length; i++)
         {
-            if (i == (int)weaponType)
+            if (i == (int)curWeaponType)
             {
                 gun = weapons[i].GetComponent<Gun>();
                 gun.gameObject.SetActive(true);
@@ -76,12 +106,16 @@ public class PlayerShooter : MonoBehaviour
     }
     void UpdateAimState()
     {
-        if (playerAnimator.GetBool("IsSprinting")) aimState = AimState.Sprinting;
+        if (playerAnimator.GetBool("IsSprinting"))
+        {
+            aimState = AimState.Sprinting;
+            playerAnimator.SetBool("IsReloading", false);
+        }
+        else if (playerAnimator.GetBool("IsReloading")) aimState = AimState.Reloading;
         else aimState = AimState.HipFire;
     }
     void Shoot()
     {
-        playerAnimator.SetBool("IsFiring", true);
-        gun.Fire(aimPoint);
+        if (gun.Fire(aimPoint)) playerAnimator.SetTrigger("Fire");
     }
 }

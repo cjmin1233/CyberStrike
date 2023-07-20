@@ -20,7 +20,7 @@ public class BlobDove : Blob
                 EssManager.instance.TickEvent += FoodFinding;
                 break;
             case BlobState.FoodTracing:
-                targetPos = foundFood.transform.position;
+                if(foundFood) targetPos = foundFood.transform.position;
                 agent.SetDestination(targetPos);
 
                 break;
@@ -46,8 +46,9 @@ public class BlobDove : Blob
                 if (Vector3.Distance(transform.position,
                     targetPos) < 0.1f)
                 {
-                    var randCircle = Random.insideUnitCircle;
-                    targetPos = new Vector3(randCircle.x, 0f, randCircle.y) * WanderingRange;
+                    //var randCircle = Random.insideUnitCircle;
+                    //targetPos = new Vector3(randCircle.x, 0f, randCircle.y) * WanderingRange;
+                    targetPos = GetRandomPointOnNavmesh(transform.position);
                     agent.SetDestination(targetPos);
                 }
                 break;
@@ -93,6 +94,11 @@ public class BlobDove : Blob
                 }
                 break;
             case BlobState.FoodTracing:
+                if (!foundFood)
+                {
+                    nextState = BlobState.Wandering;
+                    return true;
+                }
                 if (Vector3.Distance(transform.position,
                     targetPos) < 1f)
                 {
@@ -116,5 +122,6 @@ public class BlobDove : Blob
     {
         base.OnDestroy();
         EssManager.instance.TickEvent -= FoodFinding;
+        EssManager.instance.doveCount--;
     }
 }
