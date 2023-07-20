@@ -120,6 +120,7 @@ public class Gun : MonoBehaviour
                 //print("Normal vector is: " + hit.normal);
                 //EffectManager.instance.PlayHitEffect(hit.point, hit.normal, EffectManager.EffectType.Flesh);
             }
+            EffectManager.instance.PlayHitEffect(hit.point, hit.normal, EffectManager.EffectType.EnergyExplosion);
             hitPosition = hit.point;
         }
         else

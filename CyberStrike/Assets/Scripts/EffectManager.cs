@@ -53,7 +53,8 @@ public class EffectManager : MonoBehaviour
     {
         Common,
         Flesh,
-        Line
+        Line,
+        EnergyExplosion
     }
     //[SerializeField] ParticleSystem commonHitEffectPrefab;
     //[SerializeField] ParticleSystem fleshHitEffectPrefab;
