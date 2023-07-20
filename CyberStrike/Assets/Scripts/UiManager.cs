@@ -10,6 +10,8 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject curCrossHair;
     float originSize;
     [SerializeField] float spreadOffset;
+
+    [SerializeField] private HitImage hitImage;
     private void Awake()
     {
         if (!instance) instance = this;
@@ -30,5 +32,9 @@ public class UiManager : MonoBehaviour
         Vector2 curSize = rect.sizeDelta;
         curSize = Vector2.one * (originSize + spreadOffset * currentSpread / maxSpread);
         rect.sizeDelta = curSize;
+    }
+    public void HitImageUpdate(DamageType damageType)
+    {
+        hitImage.SetupImages(damageType);
     }
 }

@@ -44,14 +44,14 @@ public class PlayerControllerFPS : MonoBehaviour
 
     // Crosshair
     public bool lockCursor = true;
-    public bool crosshair = true;
-    public Sprite crosshairImage;
-    public Color crosshairColor = Color.white;
+    //public bool crosshair = true;
+    //public Sprite crosshairImage;
+    //public Color crosshairColor = Color.white;
 
     // Internal Variables
     private float yaw = 0.0f;
     private float pitch = 0.0f;
-    private Image crosshairObject;
+    //private Image crosshairObject;
 
     #region Camera Zoom Variables
 
@@ -150,7 +150,7 @@ public class PlayerControllerFPS : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
-        crosshairObject = GetComponentInChildren<Image>();
+        //crosshairObject = GetComponentInChildren<Image>();
 
         // Set internal variables
         playerCamera.m_Lens.FieldOfView = fov;
@@ -171,15 +171,15 @@ public class PlayerControllerFPS : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        if (crosshair)
-        {
-            crosshairObject.sprite = crosshairImage;
-            crosshairObject.color = crosshairColor;
-        }
-        else
-        {
-            crosshairObject.gameObject.SetActive(false);
-        }
+        //if (crosshair)
+        //{
+        //    crosshairObject.sprite = crosshairImage;
+        //    crosshairObject.color = crosshairColor;
+        //}
+        //else
+        //{
+        //    crosshairObject.gameObject.SetActive(false);
+        //}
 
         #region Sprint Bar
 

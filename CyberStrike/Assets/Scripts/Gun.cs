@@ -110,6 +110,7 @@ public class Gun : MonoBehaviour
                 damageMessage.damage = this.damage;
                 damageMessage.hitPoint = hit.point;
                 damageMessage.hitNormal = hit.normal;
+                damageMessage.damageType = DamageType.Body;
 
                 target.TakeDamage(damageMessage);
             }

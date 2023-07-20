@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(Rigidbody), typeof(NavMeshAgent), typeof(Collider))]
+[RequireComponent(typeof(Rigidbody), typeof(NavMeshAgent))]
 public class Enemy : LivingEntity
 {
     static Vector3 GetRandomPointOnNavMesh(Vector3 center, float distance, int areaMask)
@@ -56,7 +56,7 @@ public class Enemy : LivingEntity
     private void Update()
     {
         if (isDead) return;
-        print("is stopped? " + agent.isStopped + ", State is : " + state);
+        //print("is stopped? " + agent.isStopped + ", State is : " + state);
         if (state == State.Tracking &&
             Vector3.Distance(targetEntity.transform.position, transform.position) <= agent.stoppingDistance)
         {
@@ -100,7 +100,7 @@ public class Enemy : LivingEntity
     }
     public void DisableAttack()
     {
-        print("Disable attack");
+        //print("Disable attack");
         state = State.Tracking;
         agent.isStopped = false;
     }
@@ -118,7 +118,11 @@ public class Enemy : LivingEntity
         //animator.SetTrigger("Die");
         animator.SetBool("IsDead", true);
 
-        GetComponent<Collider>().enabled = false;
+        Collider[] childColliders = GetComponentsInChildren<Collider>();
+        foreach (var collider in childColliders)
+        {
+            collider.enabled = false;
+        }
         //
         print("Enemy Died!");
     }
@@ -175,6 +179,8 @@ public class Enemy : LivingEntity
     {
         base.TakeDamage(damageMessage);
 
+        UiManager.instance.HitImageUpdate(damageMessage.damageType);
+        //print("damage type is : "+damageMessage.damageType);
         if (isDead) return;
 
         // 공격 중이 아니면 피격 애니메이션
@@ -184,6 +190,7 @@ public class Enemy : LivingEntity
             animator.ResetTrigger("Hit");
             animator.SetTrigger("Hit");
         }
+        
         if (targetEntity == null) targetEntity = damageMessage.damager.GetComponent<LivingEntity>();
         //print("Enemy hit! hp is : " + this.health);
         //
