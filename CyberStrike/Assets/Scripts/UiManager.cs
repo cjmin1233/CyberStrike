@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UiManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] float spreadOffset;
 
     [SerializeField] private HitImage hitImage;
+    [SerializeField] private TextMeshProUGUI magText;
     private void Awake()
     {
         if (!instance) instance = this;
@@ -36,5 +38,9 @@ public class UiManager : MonoBehaviour
     public void HitImageUpdate(DamageType damageType)
     {
         hitImage.SetupImages(damageType);
+    }
+    public void UpdateMag(int magAmmo, int magCapacity)
+    {
+        magText.text = magAmmo.ToString() + "/" + magCapacity.ToString();
     }
 }

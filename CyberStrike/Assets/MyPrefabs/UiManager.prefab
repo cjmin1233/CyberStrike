@@ -452,6 +452,7 @@ MonoBehaviour:
   curCrossHair: {fileID: 5409769903134769712}
   spreadOffset: 20
   hitImage: {fileID: 2218173414574995935}
+  magText: {fileID: 7055689394422763912}
 --- !u!1 &5409769903134769712
 GameObject:
   m_ObjectHideFlags: 0

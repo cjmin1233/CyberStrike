@@ -326,6 +326,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6889001563221563038}
     m_Modifications:
+    - target: {fileID: 3111640787055672416, guid: aef412cac902c3c4abb0ca2790ce6d53, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3266307570661932632, guid: aef412cac902c3c4abb0ca2790ce6d53, type: 3}
       propertyPath: m_Name
       value: RifleMuzzleFlash
@@ -372,6 +376,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3268830082725294978, guid: aef412cac902c3c4abb0ca2790ce6d53, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3427861629097673420, guid: aef412cac902c3c4abb0ca2790ce6d53, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428141102924399210, guid: aef412cac902c3c4abb0ca2790ce6d53, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -206,6 +206,9 @@ public class Gun : MonoBehaviour
 
         // 조준선 크기 조정
         UiManager.instance.UpdateCrosshairSpread(currentSpread, maxSpread);
+
+        // 탄창 ui 업데이트
+        UiManager.instance.UpdateMag(magAmmo, magCapacity);
     }
     public bool AttemptReload()
     {
