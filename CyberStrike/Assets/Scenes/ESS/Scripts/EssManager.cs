@@ -2,14 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
+using TMPro;
 
 public class EssManager : MonoBehaviour
 {
+    public static Vector3 GetRandomPointOnNavmesh(Vector3 origin, float radius)
+    {
+        Vector3 randomPoint = Vector3.zero;
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(origin + Random.insideUnitSphere * radius, out hit, radius, NavMesh.AllAreas))
+        {
+            randomPoint = hit.position;
+        }
+        randomPoint.y = 0f;
+        return randomPoint;
+    }
+
     public static EssManager instance;
     
     public GameObject blobDove;
     public GameObject blobHawk;
     public GameObject food;
+
+    private int numOfDove = 1;
+    private int numOfHawk = 1;
 
     public List<Transform> foodList;
 
@@ -20,8 +37,13 @@ public class EssManager : MonoBehaviour
 
     private const float width = 50f;
 
-    [SerializeField] private Slider DoveSlider;
-    [SerializeField] private Slider HawkSlider;
+    [SerializeField] private Slider DoveNumberSlider;
+    [SerializeField] private Slider HawkNumberSlider;
+    [SerializeField] private TextMeshProUGUI DoveNumText;
+    [SerializeField] private TextMeshProUGUI HawkNumText;
+
+    [SerializeField] private Slider DoveGraph;
+    [SerializeField] private Slider HawkGraph;
 
     public int doveCount { get; set; }
     public int hawkCount { get; set; }
@@ -33,8 +55,6 @@ public class EssManager : MonoBehaviour
         foodList = new List<Transform>();
         doveCount = 0;
         hawkCount = 0;
-        StartCoroutine(Timer());
-        StartCoroutine(FoodEatingTimer());
     }
     //public Vector3 NearestFood(Vector3 pos)
     //{
@@ -84,7 +104,40 @@ public class EssManager : MonoBehaviour
 
         var doveRatio = (float)doveCount / totalBlobs;
         var hawkRatio = (float)hawkCount / totalBlobs;
-        DoveSlider.value = doveRatio;
-        HawkSlider.value = hawkRatio;
+        DoveGraph.value = doveRatio;
+        HawkGraph.value = hawkRatio;
+    }
+    public void SetNumOfDove(float count)
+    {
+        numOfDove = (int)count;
+        DoveNumText.text = ((int)count).ToString();
+    }
+    public void SetNumOfHawk(float count)
+    {
+        numOfHawk = (int)count;
+        HawkNumText.text = ((int)count).ToString();
+    }
+    public void StartSimulation()
+    {
+        for (int i = 0; i < numOfDove; i++)
+        {
+            var randPos = GetRandomPointOnNavmesh(Vector3.zero, 10f);
+            Instantiate(blobDove,
+                randPos,
+                Quaternion.identity);
+        }
+        for (int i = 0; i < numOfHawk; i++)
+        {
+            var randPos = GetRandomPointOnNavmesh(Vector3.zero, 10f);
+            Instantiate(blobHawk,
+                randPos,
+                Quaternion.identity);
+        }
+        StartCoroutine(Timer());
+        StartCoroutine(FoodEatingTimer());
+    }
+    public void SetTimeScale(float value)
+    {
+        Time.timeScale = value;
     }
 }
