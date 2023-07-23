@@ -21,32 +21,7 @@ public class EffectManager : MonoBehaviour
             return m_instance;
         }
     }
-    private class MultiQueue<GameObject>
-    {
-        private Queue<GameObject>[] queues;
-
-        public MultiQueue(int count)
-        {
-            queues = new Queue<GameObject>[count];
-            for (int i = 0; i < count; i++) queues[i] = new Queue<GameObject>();
-        }
-        public void Enqueue(int index, GameObject item)
-        {
-            queues[index].Enqueue(item);
-        }
-        public GameObject Dequeue(int index)
-        {
-            return queues[index].Dequeue();
-        }
-        public int Count(int index)
-        {
-            return queues[index].Count;
-        }
-        public GameObject Peek(int index)
-        {
-            return queues[index].Peek();
-        }
-    }
+    
     [SerializeField] GameObject[] effectPrefabs;
     private MultiQueue<GameObject> effectQueue;
     public enum EffectType

@@ -6,7 +6,7 @@ using TMPro;
 
 public class UiManager : MonoBehaviour
 {
-    public static UiManager instance { get; private set; }
+    public static UiManager Instance { get; private set; }
 
     [SerializeField] private GameObject curCrossHair;
     float originSize;
@@ -16,8 +16,8 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI magText;
     private void Awake()
     {
-        if (!instance) instance = this;
-        else if (instance != this) Destroy(gameObject);
+        if (!Instance) Instance = this;
+        else if (Instance != this) Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
 

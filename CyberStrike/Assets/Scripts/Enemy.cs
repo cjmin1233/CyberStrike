@@ -179,7 +179,7 @@ public class Enemy : LivingEntity
     {
         base.TakeDamage(damageMessage);
 
-        UiManager.instance.HitImageUpdate(damageMessage.damageType);
+        UiManager.Instance.HitImageUpdate(damageMessage.damageType);
         //print("damage type is : "+damageMessage.damageType);
         if (isDead) return;
 

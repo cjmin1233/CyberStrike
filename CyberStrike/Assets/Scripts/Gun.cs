@@ -205,10 +205,10 @@ public class Gun : MonoBehaviour
         currentSpread = Mathf.Clamp(currentSpread, 0f, maxSpread);
 
         // 조준선 크기 조정
-        UiManager.instance.UpdateCrosshairSpread(currentSpread, maxSpread);
+        UiManager.Instance.UpdateCrosshairSpread(currentSpread, maxSpread);
 
         // 탄창 ui 업데이트
-        UiManager.instance.UpdateMag(magAmmo, magCapacity);
+        UiManager.Instance.UpdateMag(magAmmo, magCapacity);
     }
     public bool AttemptReload()
     {

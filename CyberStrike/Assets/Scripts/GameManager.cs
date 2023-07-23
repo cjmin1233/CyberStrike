@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance { get; private set; }
+    public static GameManager Instance { get; private set; }
 
     private void Awake()
     {
-        if (!instance) instance = this;
-        else if (instance != this) Destroy(gameObject);
+        if (!Instance) Instance = this;
+        else if (Instance != this) Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
     }
