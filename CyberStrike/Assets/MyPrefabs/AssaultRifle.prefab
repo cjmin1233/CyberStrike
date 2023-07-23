@@ -319,6 +319,9 @@ MonoBehaviour:
   magInClip: {fileID: 8300000, guid: 76d167f0d7a36f640b19a72ffcabcc76, type: 3}
   reloadClip: {fileID: 8300000, guid: 31535b089e5146b4983a873fee189c51, type: 3}
   lineSpeed: 50
+  WhatIsTarget:
+    serializedVersion: 2
+    m_Bits: 4352
 --- !u!1001 &2183258973524811453
 PrefabInstance:
   m_ObjectHideFlags: 0

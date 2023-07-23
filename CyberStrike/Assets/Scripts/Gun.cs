@@ -49,6 +49,7 @@ public class Gun : MonoBehaviour
     #endregion
 
     [SerializeField] private float lineSpeed;
+    [SerializeField] private LayerMask WhatIsTarget;
     private void Awake()
     {
         //bulletLineRenderer = GetComponent<LineRenderer>();
@@ -100,19 +101,9 @@ public class Gun : MonoBehaviour
     }
     public void Shot(Vector3 fireDirection)
     {
-        //var ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 1f));
-
-        //if (Physics.Raycast(ray, out hit, fireDistance))
-        //{
-        //    bulletLineRenderer.positionCount = 2;
-
-        //    bulletLineRenderer.SetPosition(0, firePoint.position);
-        //    bulletLineRenderer.SetPosition(1, hit.point);
-        //}
-        //else bulletLineRenderer.positionCount = 0;
         Vector3 hitPosition;
 
-        if(Physics.Raycast(firePoint.position, fireDirection, out hit, fireDistance))
+        if(Physics.Raycast(firePoint.position, fireDirection, out hit, fireDistance, WhatIsTarget))
         {
             var target = hit.collider.GetComponent<IDamagable>();
 
@@ -121,7 +112,7 @@ public class Gun : MonoBehaviour
                 // 생명체 타격
                 DamageMessage damageMessage;
 
-                damageMessage.damager = PlayerControllerFPS.instance.gameObject;
+                damageMessage.damager = PlayerControllerFPS.Instance.gameObject;
                 damageMessage.damage = this.damage;
                 damageMessage.hitPoint = hit.point;
                 damageMessage.hitNormal = hit.normal;

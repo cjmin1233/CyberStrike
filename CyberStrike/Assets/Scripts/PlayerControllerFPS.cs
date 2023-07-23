@@ -17,7 +17,7 @@ using System.Net;
 [RequireComponent(typeof(Rigidbody), typeof(PlayerInput), typeof(Collider))]
 public class PlayerControllerFPS : MonoBehaviour
 {
-    public static PlayerControllerFPS instance { get; private set; }
+    public static PlayerControllerFPS Instance { get; private set; }
 
     private Rigidbody rb;
     private PlayerInput playerInput;
@@ -136,8 +136,8 @@ public class PlayerControllerFPS : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) instance = this;
-        else if (instance != this) Destroy(gameObject);
+        if (Instance == null) Instance = this;
+        else if (Instance != this) Destroy(gameObject);
 
         rb = GetComponent<Rigidbody>();
         playerAnimator = GetComponentInChildren<Animator>();
@@ -158,10 +158,10 @@ public class PlayerControllerFPS : MonoBehaviour
 
     void Start()
     {
-        if (lockCursor)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
+        //if (lockCursor)
+        //{
+        //    Cursor.lockState = CursorLockMode.Locked;
+        //}
 
         //if (crosshair)
         //{

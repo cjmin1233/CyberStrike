@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 338883800}
   - component: {fileID: 338883799}
   - component: {fileID: 338883798}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -395,7 +395,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh28950
+  m_Name: pb_Mesh29680
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -778,7 +778,7 @@ GameObject:
   - component: {fileID: 1087738023}
   - component: {fileID: 1087738022}
   - component: {fileID: 1087738021}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -908,8 +908,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectPrefabs:
-  - {fileID: 5722804702109559597, guid: af3b555d1b06b2f45aca13b5264cc757, type: 3}
-  - {fileID: 9107800225739976441, guid: 47ed95f39e11719468dfc823edeb8d3e, type: 3}
   - {fileID: 8959301243241832518, guid: 79b6f420fe94e214bb29c55e1369c47d, type: 3}
   - {fileID: 1329845292236604, guid: 1bfd129d3264d2642beb523f6083485f, type: 3}
 --- !u!1 &1250396410
@@ -924,7 +922,7 @@ GameObject:
   - component: {fileID: 1250396414}
   - component: {fileID: 1250396413}
   - component: {fileID: 1250396412}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1023,7 +1021,7 @@ GameObject:
   - component: {fileID: 1703756835}
   - component: {fileID: 1703756834}
   - component: {fileID: 1703756833}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1373,7 +1371,7 @@ GameObject:
   - component: {fileID: 1894551524}
   - component: {fileID: 1894551523}
   - component: {fileID: 1894551522}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

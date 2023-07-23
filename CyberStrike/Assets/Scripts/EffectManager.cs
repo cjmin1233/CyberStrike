@@ -26,8 +26,6 @@ public class EffectManager : MonoBehaviour
     private MultiQueue<GameObject> effectQueue;
     public enum EffectType
     {
-        Common,
-        Flesh,
         Line,
         EnergyExplosion
     }
@@ -66,7 +64,7 @@ public class EffectManager : MonoBehaviour
 
         return instance;
     }
-    public void PlayHitEffect(Vector3 point, Vector3 normal, EffectType effectType = EffectType.Common)
+    public void PlayHitEffect(Vector3 point, Vector3 normal, EffectType effectType)
     {
         int index = (int)effectType;
         //var targetPrefab = effectPrefabs[index];

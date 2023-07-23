@@ -117,5 +117,6 @@ public class PlayerShooter : MonoBehaviour
     void Shoot()
     {
         if (gun.Fire(aimPoint)) playerAnimator.SetTrigger("Fire");
+        else if (gun.gunState == Gun.GunState.Empty) Reload();
     }
 }
