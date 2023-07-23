@@ -31,7 +31,7 @@ public class PlayerControllerFPS : MonoBehaviour
     [Tooltip("카메라 시야각"), Range(30f, 179f)] public float fov = 60f;
     [HideInInspector] public bool invertCamera = false;
     [HideInInspector] public bool cameraCanMove = true;
-    [Tooltip("마우스 민감도"), Range(0.1f, 10f)] public float mouseSensitivity = 2f;
+    [Tooltip("마우스 민감도"), Range(0.1f, 2f)] public float mouseSensitivity = .1f;
     [Tooltip("카메라 상하범위"), Range(0f, 90f)] public float maxLookAngle = 50f;
 
     // Crosshair
@@ -98,12 +98,12 @@ public class PlayerControllerFPS : MonoBehaviour
     #region Jump
     [Header("-Jump-"), Space(10f)]
     public bool enableJump = true;
-    //public KeyCode jumpKey = KeyCode.Space;
     public float jumpPower = 5f;
 
     // Internal Variables
     private bool isGrounded = false;
-
+    //private int jumpCounter = 0;
+    //private int maxJumpCount = 1;
     #endregion
 
     //#region Crouch
@@ -218,16 +218,16 @@ public class PlayerControllerFPS : MonoBehaviour
         // Control camera movement
         if (cameraCanMove)
         {
-            yaw = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * mouseSensitivity;
+            yaw = transform.localEulerAngles.y + playerInput.mouseMoveInput.x * mouseSensitivity;
 
             if (!invertCamera)
             {
-                pitch -= mouseSensitivity * Input.GetAxis("Mouse Y");
+                pitch -= mouseSensitivity * playerInput.mouseMoveInput.y;
             }
             else
             {
                 // Inverted Y
-                pitch += mouseSensitivity * Input.GetAxis("Mouse Y");
+                pitch += mouseSensitivity * playerInput.mouseMoveInput.y;
             }
 
             // Clamp pitch between lookAngle
@@ -400,7 +400,7 @@ public class PlayerControllerFPS : MonoBehaviour
 
             Vector3 velocityChange;
             // All movement calculations while sprint is active
-            if (enableSprint && playerInput.sprint && sprintRemaining > 0f && !isSprintCooldown)
+            if (enableSprint && playerInput.sprint && isGrounded && sprintRemaining > 0f && !isSprintCooldown)
             {
                 //targetVelocity = transform.TransformDirection(targetVelocity) * sprintSpeed;
                 targetVelocity *= sprintSpeed;
@@ -490,7 +490,6 @@ public class PlayerControllerFPS : MonoBehaviour
         {
             rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
             isGrounded = false;
-            //animator.SetBool("IsJumping", true);
         }
 
         // When crouched and using toggle system, will uncrouch for a jump

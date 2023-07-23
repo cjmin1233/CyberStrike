@@ -2147,11 +2147,9 @@ Animator:
   m_StabilizeFeet: 0
   m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
     are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'Head'\n\tTransform 'LowerArm_Right'\n\tTransform
-    'Neck'\n\tTransform 'Hips'\n\tTransform 'UpperArm_Right'\n\tTransform 'Head'\n\tTransform
-    'LowerArm_Right'\n\tTransform 'Neck'\n\tTransform 'Hips'\n\tTransform 'UpperArm_Right'\n\tand
-    more ...\n\tFrom animation clip 'Run_guard_AR_test'\n\tFrom animation clip 'Run_guard_AR_test'\n\tFrom
-    animation clip 'Run_guard_AR_test'"
+    by Humanoid clips.\n\tTransform 'LowerArm_Right'\n\tTransform 'LowerArm_Right'\n\tTransform
+    'UpperArm_Right'\n\tTransform 'Head'\n\tFrom animation clip 'Run_guard_AR_test'\n\tFrom
+    animation clip 'Run_guard_AR_test'\n\tFrom animation clip 'Run_guard_AR_test'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -3846,10 +3844,10 @@ GameObject:
   - component: {fileID: 8176986907674656537}
   - component: {fileID: 8176986907674656538}
   - component: {fileID: 8176986907674656542}
-  - component: {fileID: 6162223197008994327}
   - component: {fileID: 8716518063726962399}
   - component: {fileID: 704283943776191995}
   - component: {fileID: 6303360806002899425}
+  - component: {fileID: 3261847356083609615}
   m_Layer: 7
   m_Name: FirstPersonController_v3
   m_TagString: Player
@@ -3905,18 +3903,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &6162223197008994327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8176986907674656533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c250d0cef133fb488aa9b40c7fe81f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8716518063726962399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3933,7 +3919,7 @@ MonoBehaviour:
   fov: 60
   invertCamera: 0
   cameraCanMove: 1
-  mouseSensitivity: 2
+  mouseSensitivity: 0.1
   maxLookAngle: 30
   lockCursor: 1
   enableZoom: 1
@@ -3986,6 +3972,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+--- !u!114 &3261847356083609615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8176986907674656533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f63396ace01c64f86c892a3aeb7bae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7774474858903212943
 PrefabInstance:
   m_ObjectHideFlags: 0
