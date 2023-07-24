@@ -83,7 +83,7 @@ public class Enemy : LivingEntity
     {
         if (isDead) return;
         //print("is stopped? " + agent.isStopped + ", State is : " + state);
-        if (state == State.Tracking &&
+        if (state == State.Tracking && hasTarget &&
             Vector3.Distance(targetEntity.transform.position, transform.position) <= agent.stoppingDistance)
         {
             BeginAttack();
@@ -95,7 +95,7 @@ public class Enemy : LivingEntity
     {
         if (isDead) return;
 
-        if (state == State.AttackBegin || state == State.Attacking)
+        if ((state == State.AttackBegin || state == State.Attacking) && hasTarget)
         {
             var lookRotation =
                 Quaternion.LookRotation(targetEntity.transform.position - transform.position, Vector3.up);
@@ -136,7 +136,7 @@ public class Enemy : LivingEntity
     public override void Die()
     {
         base.Die();
-        print("적 사망, 점수 추가 : " + maxHealth);
+        GameManager.Instance.AddScore(maxHealth);
 
         agent.enabled = false;
 
@@ -148,8 +148,6 @@ public class Enemy : LivingEntity
         {
             collider.enabled = false;
         }
-        //
-        print("Enemy Died!");
     }
     private IEnumerator UpdatePath()
     {
@@ -219,8 +217,6 @@ public class Enemy : LivingEntity
         }
         
         if (targetEntity == null) targetEntity = damageMessage.damager.GetComponent<LivingEntity>();
-        //print("Enemy hit! hp is : " + this.health);
-        //
     }
     public void DieFinish()
     {

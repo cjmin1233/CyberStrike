@@ -8,7 +8,7 @@ public class MyFadingCG : MonoBehaviour
     [SerializeField] private float speed;
     private Animator animator;
     private TextMeshProUGUI cgText;
-    private void Awake()
+    private void OnEnable()
     {
         animator = GetComponent<Animator>();
         cgText = GetComponentInChildren<TextMeshProUGUI>();
@@ -17,6 +17,13 @@ public class MyFadingCG : MonoBehaviour
     }
     public void TriggerFadingCG(string text)
     {
+        if (cgText is null) cgText = GetComponentInChildren<TextMeshProUGUI>();
+
+        if (cgText is null)
+        {
+            print("¹®Á¦!");
+            return;
+        }
         cgText.text = text;
         animator.SetTrigger("FadeTrigger");
     }

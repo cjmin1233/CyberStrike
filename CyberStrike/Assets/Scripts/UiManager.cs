@@ -23,6 +23,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private MyFadingCG noticeCG;
     [SerializeField] private MySliderUnion playerHealthBar;
     [SerializeField] private TextMeshProUGUI playerHealthText;
+    [SerializeField] private TextMeshProUGUI scoreText;
     //[SerializeField] private CanvasGroup sprintBarCG;
     //[SerializeField] private Image sprintBarBG;
     //[SerializeField] private Image sprintBar;
@@ -125,5 +126,9 @@ public class UiManager : MonoBehaviour
         playerHealthText.text = Mathf.FloorToInt(health).ToString() 
             + "/" + Mathf.FloorToInt(maxHealth).ToString();
         playerHealthBar.SetValue(value);
+    }
+    public void UpdateGameScore(float score)
+    {
+        scoreText.text = score.ToString("F0");
     }
 }

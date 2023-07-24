@@ -20,6 +20,7 @@ public class PlayerShooter : MonoBehaviour
     Animator playerAnimator;
     PlayerInput playerInput;
     RigBuilder rigBuilder;
+    PlayerHealth playerHealth;
 
     Gun gun;
     [SerializeField] GameObject[] weapons;
@@ -38,6 +39,7 @@ public class PlayerShooter : MonoBehaviour
     {
         playerAnimator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
+        playerHealth = GetComponent<PlayerHealth>();
 
         rigBuilder = GetComponentInChildren<RigBuilder>();
 
@@ -46,11 +48,14 @@ public class PlayerShooter : MonoBehaviour
     }
     private void Update()
     {
+        if (playerHealth.isDead) return;
         UpdateAimState();
         UpdateAimPoint();
     }
     private void FixedUpdate()
     {
+        if (playerHealth.isDead) return;
+
         if (aimState == AimState.HipFire)
         {
             if (playerInput.fire) Shoot();

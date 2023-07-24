@@ -22,6 +22,7 @@ public class PlayerControllerFPS : MonoBehaviour
     private Rigidbody rb;
     private PlayerInput playerInput;
     private Animator playerAnimator;
+    private PlayerHealth playerHealth;
 
     #region Camera Movement Variables
     [Header("-Camera-")]
@@ -142,6 +143,7 @@ public class PlayerControllerFPS : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerAnimator = GetComponentInChildren<Animator>();
         playerInput = GetComponent<PlayerInput>();
+        playerHealth = GetComponent<PlayerHealth>();
         //crosshairObject = GetComponentInChildren<Image>();
 
         // Set internal variables
@@ -155,7 +157,6 @@ public class PlayerControllerFPS : MonoBehaviour
             sprintCooldownReset = sprintCooldown;
         }
     }
-
     void Start()
     {
         //if (lockCursor)
@@ -209,6 +210,7 @@ public class PlayerControllerFPS : MonoBehaviour
 
     private void Update()
     {
+        if (playerHealth.isDead) return;
         // Animator parameter update.
         playerAnimator.SetBool("IsWalking", isWalking);
         playerAnimator.SetBool("IsSprinting", isSprinting);
@@ -378,6 +380,8 @@ public class PlayerControllerFPS : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (playerHealth.isDead) return;
+
         #region Movement
 
         if (playerCanMove)

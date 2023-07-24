@@ -386,61 +386,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &1854163666
+--- !u!1001 &1526909776
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2529622492425826293, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250951708209817460, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250951708209817460, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250951708209817460, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
-      objectReference: {fileID: 118786136}
-    - target: {fileID: 4250951708209817460, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250951708209817460, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: LoadNextScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250951708209817460, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250951708209817460, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4250951708209817460, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4820950151523119786, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4820950151523119786, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4917000450364430844, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5409769902987050520, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
       propertyPath: m_Name
       value: UiManager
@@ -527,14 +479,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5409769902987050524, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5490363549412675852, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5490363549412675852, guid: 80ce97e5cd1c1f14faa53d534e5d9723, type: 3}
-      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
