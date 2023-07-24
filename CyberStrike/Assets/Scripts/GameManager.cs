@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     {
         // 적들이 몰려옵니다. 준비하세요....
         // 3,2,1...start
-        // 
+        EnemySpawner.Instance.StartEnemySpawn();
         yield return null;
     }
 }

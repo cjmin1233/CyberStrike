@@ -5,11 +5,10 @@ using UnityEngine.AI;
 
 public class NavMeshUtility : MonoBehaviour
 {
-    public static Vector3 GetRandomPointOnNavmesh(Vector3 origin, float radius)
+    public static Vector3 GetRandomPointOnNavmesh(Vector3 origin, float radius, int areaMask = NavMesh.AllAreas)
     {
         Vector3 randomPoint = Vector3.zero;
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(origin + Random.insideUnitSphere * radius, out hit, radius, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(origin + Random.insideUnitSphere * radius, out NavMeshHit hit, radius, areaMask))
         {
             randomPoint = hit.position;
         }

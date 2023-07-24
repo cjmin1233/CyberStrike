@@ -313,7 +313,7 @@ MonoBehaviour:
   reloadTime: 2
   maxSpread: 1
   stability: 3
-  restoreFromRecoilSpeed: 2
+  restoreFromRecoilSpeed: 3
   muzzleFlashEffect: {fileID: 3593392588971727985}
   shotClip: {fileID: 8300000, guid: 08f78eba48bb21c44ac5a74ca84efc83, type: 3}
   magInClip: {fileID: 8300000, guid: 76d167f0d7a36f640b19a72ffcabcc76, type: 3}

@@ -5,7 +5,8 @@ using System;
 
 public class LivingEntity : MonoBehaviour, IDamagable
 {
-    public float maxHealth;
+    [SerializeField] protected float originMaxHealth;
+    public float maxHealth { get; protected set; }
     public float health { get; protected set; }
     public bool isDead { get; protected set; }
     public event Action onDeath;
@@ -13,6 +14,7 @@ public class LivingEntity : MonoBehaviour, IDamagable
     protected virtual void OnEnable()
     {
         isDead = false;
+        maxHealth = originMaxHealth;
         health = maxHealth;
     }
     public virtual void TakeDamage(DamageMessage damageMessage)

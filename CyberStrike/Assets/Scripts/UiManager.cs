@@ -20,6 +20,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject MainPanel;
     [SerializeField] private GameObject StartPanel;
     [SerializeField] private GameObject PauseMenu;
+    [SerializeField] private MyFadingCG noticeCG;
 
     //[SerializeField] private CanvasGroup sprintBarCG;
     //[SerializeField] private Image sprintBarBG;
@@ -106,5 +107,11 @@ public class UiManager : MonoBehaviour
         MainPanel.SetActive(true);
         StartPanel.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
+        EnemySpawner.Instance.onDifficultyIncrease += DifficultyNotice;
+    }
+    private void DifficultyNotice(float difficulty)
+    {
+        string noticeText = "DIffIculty Increase : " + ((int)difficulty).ToString();
+        noticeCG.TriggerFadingCG(noticeText);
     }
 }

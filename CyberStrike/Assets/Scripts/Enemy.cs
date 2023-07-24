@@ -6,16 +6,16 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody), typeof(NavMeshAgent))]
 public class Enemy : LivingEntity
 {
-    static Vector3 GetRandomPointOnNavMesh(Vector3 center, float distance, int areaMask)
-    {
-        var randomPos = Random.insideUnitSphere * distance + center;
+    //static Vector3 GetRandomPointOnNavMesh(Vector3 center, float distance, int areaMask)
+    //{
+    //    var randomPos = Random.insideUnitSphere * distance + center;
 
-        NavMeshHit hit;
+    //    NavMeshHit hit;
 
-        NavMesh.SamplePosition(randomPos, out hit, distance, areaMask);
+    //    NavMesh.SamplePosition(randomPos, out hit, distance, areaMask);
 
-        return hit.position;
-    }
+    //    return hit.position;
+    //}
     private enum State
     {
         Patrol,
@@ -28,7 +28,9 @@ public class Enemy : LivingEntity
     //Rigidbody rb;
     Animator animator;
 
-    [SerializeField] float speed;
+    [SerializeField] private float moveSpeed;
+    private float moveSpeedMultiplier = 1f;
+
     [SerializeField, Range(0.01f, 2f)] float turnSmoothTime;
     float turnSmoothVelocity;
 
@@ -37,17 +39,28 @@ public class Enemy : LivingEntity
 
     bool hasTarget => targetEntity != null && !targetEntity.isDead;
 
+    private float damageMultiplier = 1f;
     private void Awake()
     {
         //rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = speed;
     }
-    public void Setup(float health)
+    protected override void OnEnable()
     {
-        this.maxHealth = health;
-        this.health = health;
+        health = maxHealth;
+    }
+    public void Setup(float difficulty)
+    {
+        isDead = false;
+        this.maxHealth = originMaxHealth * difficulty;
+        this.damageMultiplier = difficulty;
+        this.moveSpeedMultiplier = difficulty;
+        //
+    }
+    private void SetAgentSpeed(float moveSpeed)
+    {
+        agent.speed = moveSpeed * moveSpeedMultiplier;
     }
     private void Start()
     {
@@ -62,7 +75,8 @@ public class Enemy : LivingEntity
         {
             BeginAttack();
         }
-        animator.SetFloat("Speed", agent.desiredVelocity.magnitude);
+        animator.SetFloat("MoveSpeed", agent.desiredVelocity.magnitude);
+        animator.SetFloat("Speed", moveSpeedMultiplier);
     }
     private void FixedUpdate()
     {
@@ -96,13 +110,11 @@ public class Enemy : LivingEntity
     public void EnableAttack()
     {
         state = State.Attacking;
-
     }
     public void DisableAttack()
     {
-        //print("Disable attack");
         state = State.Tracking;
-        agent.isStopped = false;
+        if(agent.enabled) agent.isStopped = false;
     }
     public void Idling()
     {
@@ -115,7 +127,6 @@ public class Enemy : LivingEntity
         agent.enabled = false;
 
         animator.applyRootMotion = true;
-        //animator.SetTrigger("Die");
         animator.SetBool("IsDead", true);
 
         Collider[] childColliders = GetComponentsInChildren<Collider>();
@@ -135,7 +146,8 @@ public class Enemy : LivingEntity
                 if (state == State.Patrol)
                 {
                     state = State.Tracking;
-                    agent.speed = speed;
+                    //agent.speed = moveSpeed;
+                    SetAgentSpeed(moveSpeed);
                 }
 
                 agent.SetDestination(targetEntity.transform.position);
@@ -148,12 +160,13 @@ public class Enemy : LivingEntity
                 if (state != State.Patrol)
                 {
                     state = State.Patrol;
-                    agent.speed = speed;
+                    //agent.speed = moveSpeed;
+                    SetAgentSpeed(moveSpeed);
                 }
 
                 if (agent.remainingDistance <= 1f)
                 {
-                    var patrolPosition = GetRandomPointOnNavMesh(transform.position, 20f, NavMesh.AllAreas);
+                    var patrolPosition = NavMeshUtility.GetRandomPointOnNavmesh(transform.position, 20f, NavMesh.AllAreas);
                     agent.SetDestination(patrolPosition);
                     agent.isStopped = false;
                 }
@@ -194,5 +207,9 @@ public class Enemy : LivingEntity
         if (targetEntity == null) targetEntity = damageMessage.damager.GetComponent<LivingEntity>();
         //print("Enemy hit! hp is : " + this.health);
         //
+    }
+    public void TestFunc()
+    {
+        print("Enemy boost up!");
     }
 }

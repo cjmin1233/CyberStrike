@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 419745921}
   - component: {fileID: 419745920}
   - component: {fileID: 419745919}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -779,7 +779,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh32560
+  m_Name: pb_Mesh60998
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1504,62 +1504,7 @@ MonoBehaviour:
   - {fileID: 6012804855157393529, guid: f7a67e07ff3c2564192dd06ae3ce3224, type: 3}
   - {fileID: 2760848400884773452, guid: 989f2878e03d29746b5169317e7b08d5, type: 3}
   - {fileID: 4410730210721499140, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
-  commonSpawnDuration: 0
-  eliteSpawnDuration: 0
---- !u!1001 &4410730209233272487
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4410730210721499140, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
-      propertyPath: m_Name
-      value: Golem
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410730210721499151, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410730210721499151, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410730210721499151, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410730210721499151, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.42
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410730210721499151, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410730210721499151, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410730210721499151, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410730210721499151, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410730210721499151, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410730210721499151, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410730210721499151, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 786d5bccd628e3446ae01a78e88e3807, type: 3}
+  commonSpawnDuration: 10
+  eliteSpawnDuration: 60
+  commonEnemyTypes: 0000000001000000
+  eliteEnemyTypes: 02000000

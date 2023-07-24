@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -21,6 +22,13 @@ public class EnemySpawner : MonoBehaviour
         Beholder,
         Golem
     }
+    [SerializeField] EnemyType[] commonEnemyTypes;
+    [SerializeField] EnemyType[] eliteEnemyTypes;
+
+    public Action<float> onDifficultyIncrease;
+    private Action<float, float> enemyBoostAction;
+    //private float enemyMoveSpeedBoost
+    private float difficulty = 1f;
     private void Awake()
     {
         if (!Instance) Instance = this;
@@ -40,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
             Add2Pool(index, instanceToAdd);
         }
     }
-    public  void Add2Pool(int index, GameObject instanceToAdd)
+    public void Add2Pool(int index, GameObject instanceToAdd)
     {
         instanceToAdd.SetActive(false);
         enemyQueue.Enqueue(index, instanceToAdd);
@@ -63,18 +71,54 @@ public class EnemySpawner : MonoBehaviour
 
         while (true)
         {
-            if (commonSpawnTimer >= commonSpawnDuration)
+            if (commonSpawnTimer <= 0f)
             {
                 // 일반 적 생성
+                SpawnCommon();
             }
-            if (eliteSpawnTimer >= eliteSpawnDuration)
+            if (eliteSpawnTimer <= 0f)
             {
+                // 난이도 증가
+                IncreaseDifficulty();
                 // 엘리트 적 생성
+                SpawnElite();
             }
 
-            commonSpawnTimer += Time.deltaTime;
-            eliteSpawnTimer += Time.deltaTime;
+            commonSpawnTimer -= Time.deltaTime;
+            eliteSpawnTimer -= Time.deltaTime;
             yield return null;
         }
+    }
+    private void SpawnCommon()
+    {
+        commonSpawnTimer = commonSpawnDuration;
+        EnemyType randType = commonEnemyTypes[Random.Range(0, commonEnemyTypes.Length)];
+
+        SpawnEnemy((int)randType);
+    }
+    private void SpawnElite()
+    {
+        eliteSpawnTimer = eliteSpawnDuration;
+        EnemyType randType = eliteEnemyTypes[Random.Range(0, eliteEnemyTypes.Length)];
+
+        SpawnEnemy((int)randType);
+    }
+    private void SpawnEnemy(int index)
+    {
+        var instance = GetFromPool(index);
+        instance.GetComponent<Enemy>().Setup(difficulty);
+        instance.transform.position = NavMeshUtility.GetRandomPointOnNavmesh(Vector3.zero, 20f);
+        instance.SetActive(true);
+    }
+    public void IncreaseDifficulty()
+    {
+        difficulty += .1f;
+
+        onDifficultyIncrease(difficulty);
+        print("난이도 증가!");
+    }
+    public void EnemyBoost()
+    {
+        enemyBoostAction(0.5f, 0.5f);
     }
 }

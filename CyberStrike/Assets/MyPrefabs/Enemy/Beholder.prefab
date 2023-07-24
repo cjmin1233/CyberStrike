@@ -167,8 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1d6c49e7bf14147aa5351763d90c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
-  speed: 2
+  originMaxHealth: 200
+  moveSpeed: 2
   turnSmoothTime: 0.01
   targetEntity: {fileID: 0}
   whatIsTarget:
