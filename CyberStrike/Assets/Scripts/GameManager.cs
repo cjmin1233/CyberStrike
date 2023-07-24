@@ -18,9 +18,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent onMainSceneLoaded;
     public UnityEvent onStartSceneLoaded;
 
-    private const string startSceneName = "CyberStrike_Start";
-    private const string mainSceneName = "CyberStrike_Main";
-
+    private Coroutine mainSceneStartProcess;
     private void Awake()
     {
         if (!Instance) Instance = this;
@@ -52,6 +50,17 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.buildIndex.Equals((int)SceneType.Start)) onStartSceneLoaded.Invoke();
-        else if (scene.buildIndex.Equals((int)SceneType.Main)) onMainSceneLoaded.Invoke();
+        else if (scene.buildIndex.Equals((int)SceneType.Main))
+        {
+            onMainSceneLoaded.Invoke();
+            mainSceneStartProcess = StartCoroutine(MainSceneStartProcess());
+        }
+    }
+    private IEnumerator MainSceneStartProcess()
+    {
+        // 적들이 몰려옵니다. 준비하세요....
+        // 3,2,1...start
+        // 
+        yield return null;
     }
 }

@@ -9,10 +9,17 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField] private GameObject[] enemies;
     private MultiQueue<GameObject> enemyQueue;
+
+    private Coroutine enemySpawnProcess;
+    [SerializeField] private float commonSpawnDuration;
+    [SerializeField] private float eliteSpawnDuration;
+    private float commonSpawnTimer;
+    private float eliteSpawnTimer;
     public enum EnemyType
     {
         Slime,
-        Beholder
+        Beholder,
+        Golem
     }
     private void Awake()
     {
@@ -33,7 +40,6 @@ public class EnemySpawner : MonoBehaviour
             Add2Pool(index, instanceToAdd);
         }
     }
-
     public  void Add2Pool(int index, GameObject instanceToAdd)
     {
         instanceToAdd.SetActive(false);
@@ -45,5 +51,30 @@ public class EnemySpawner : MonoBehaviour
         var instance = enemyQueue.Dequeue(index);
 
         return instance;
+    }
+    public void StartEnemySpawn()
+    {
+        enemySpawnProcess = StartCoroutine(EnemySpawnProcess());
+    }
+    public IEnumerator EnemySpawnProcess()
+    {
+        commonSpawnTimer = 0f;
+        eliteSpawnTimer = 0f;
+
+        while (true)
+        {
+            if (commonSpawnTimer >= commonSpawnDuration)
+            {
+                // 老馆 利 积己
+            }
+            if (eliteSpawnTimer >= eliteSpawnDuration)
+            {
+                // 郡府飘 利 积己
+            }
+
+            commonSpawnTimer += Time.deltaTime;
+            eliteSpawnTimer += Time.deltaTime;
+            yield return null;
+        }
     }
 }

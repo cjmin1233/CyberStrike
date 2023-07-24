@@ -25,7 +25,7 @@ public class Enemy : LivingEntity
     }
     private State state;
     NavMeshAgent agent;
-    Rigidbody rb;
+    //Rigidbody rb;
     Animator animator;
 
     [SerializeField] float speed;
@@ -39,7 +39,7 @@ public class Enemy : LivingEntity
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;
