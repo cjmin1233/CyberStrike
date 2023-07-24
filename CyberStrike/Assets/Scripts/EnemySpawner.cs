@@ -67,7 +67,8 @@ public class EnemySpawner : MonoBehaviour
     public IEnumerator EnemySpawnProcess()
     {
         commonSpawnTimer = 0f;
-        eliteSpawnTimer = 0f;
+        eliteSpawnTimer = eliteSpawnDuration;
+        difficulty = 1f;
 
         while (true)
         {

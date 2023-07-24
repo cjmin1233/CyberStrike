@@ -111,7 +111,11 @@ public class UiManager : MonoBehaviour
     }
     private void DifficultyNotice(float difficulty)
     {
-        string noticeText = "DIffIculty Increase : " + ((int)difficulty).ToString();
+        string noticeText = "DIffIculty Increase : " + difficulty.ToString("F1");
+        noticeCG.TriggerFadingCG(noticeText);
+    }
+    public void Notice(string noticeText)
+    {
         noticeCG.TriggerFadingCG(noticeText);
     }
 }

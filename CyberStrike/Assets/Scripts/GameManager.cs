@@ -59,8 +59,18 @@ public class GameManager : MonoBehaviour
     private IEnumerator MainSceneStartProcess()
     {
         // 적들이 몰려옵니다. 준비하세요....
+        UiManager.Instance.Notice("Get Ready...");
+        yield return new WaitForSeconds(1f);
+
         // 3,2,1...start
+        UiManager.Instance.Notice("3");
+        yield return new WaitForSeconds(1f);
+        UiManager.Instance.Notice("2");
+        yield return new WaitForSeconds(1f);
+        UiManager.Instance.Notice("1");
+        yield return new WaitForSeconds(1f);
+        UiManager.Instance.Notice("Start");
+
         EnemySpawner.Instance.StartEnemySpawn();
-        yield return null;
     }
 }
