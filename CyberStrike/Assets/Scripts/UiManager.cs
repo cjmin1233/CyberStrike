@@ -21,7 +21,8 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject StartPanel;
     [SerializeField] private GameObject PauseMenu;
     [SerializeField] private MyFadingCG noticeCG;
-
+    [SerializeField] private MySliderUnion playerHealthBar;
+    [SerializeField] private TextMeshProUGUI playerHealthText;
     //[SerializeField] private CanvasGroup sprintBarCG;
     //[SerializeField] private Image sprintBarBG;
     //[SerializeField] private Image sprintBar;
@@ -117,5 +118,12 @@ public class UiManager : MonoBehaviour
     public void Notice(string noticeText)
     {
         noticeCG.TriggerFadingCG(noticeText);
+    }
+    public void UpdatePlayerHealthBar(float health, float maxHealth)
+    {
+        float value = Mathf.Clamp01(health / maxHealth);
+        playerHealthText.text = Mathf.FloorToInt(health).ToString() 
+            + "/" + Mathf.FloorToInt(maxHealth).ToString();
+        playerHealthBar.SetValue(value);
     }
 }

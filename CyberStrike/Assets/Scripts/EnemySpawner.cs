@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+public enum EnemyType
+{
+    Slime,
+    Beholder,
+    Golem
+}
 public class EnemySpawner : MonoBehaviour
 {
     public static EnemySpawner Instance { get; private set; }
@@ -16,12 +22,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float eliteSpawnDuration;
     private float commonSpawnTimer;
     private float eliteSpawnTimer;
-    public enum EnemyType
-    {
-        Slime,
-        Beholder,
-        Golem
-    }
+
     [SerializeField] EnemyType[] commonEnemyTypes;
     [SerializeField] EnemyType[] eliteEnemyTypes;
 

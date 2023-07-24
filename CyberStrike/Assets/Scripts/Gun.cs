@@ -138,7 +138,7 @@ public class Gun : MonoBehaviour
         StartCoroutine(ShotEffect(hitPosition));
 
         magAmmo--;
-        print("Ammo : " + magAmmo);
+        //print("Ammo : " + magAmmo);
         if (magAmmo <= 0)
         {
             print("Ammo Empty!");

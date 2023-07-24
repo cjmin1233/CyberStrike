@@ -9,8 +9,7 @@ public class MySliderUnion : MonoBehaviour
     [SerializeField] private GameObject sliderUnitPrefab;
     MySliderUnit[] sliderUnits;
 
-    float unitWidth;
-    [Range(0f, 1f), SerializeField] private float R = 0f;
+    private float unitWidth;
     private void Awake()
     {
         sliderUnits = new MySliderUnit[unitCount];
@@ -28,10 +27,6 @@ public class MySliderUnion : MonoBehaviour
             float x = startPos + i * unitWidth;
             sliderUnits[i].SetupRect(unitWidth, Height, new(x, 0f));
         }
-    }
-    private void Update()
-    {
-        SetValue(R);
     }
     public void SetValue(float value)
     {

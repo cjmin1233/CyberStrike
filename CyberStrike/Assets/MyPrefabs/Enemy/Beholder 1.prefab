@@ -70,11 +70,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2760848400884773453}
   - component: {fileID: 2760848400884773489}
-  - component: {fileID: 2760848400884773455}
   - component: {fileID: 2760848400884773454}
   - component: {fileID: 6629710639635401387}
   m_Layer: 0
-  m_Name: Beholder
+  m_Name: Beholder 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -112,27 +111,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!95 &2760848400884773455
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2760848400884773452}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 9e6376af45d044888914cb4041e67a21, type: 3}
-  m_Controller: {fileID: 9100000, guid: f8b85f7809ce2394fb9a8eb1f7fe1545, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!195 &2760848400884773454
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -174,6 +152,7 @@ MonoBehaviour:
   whatIsTarget:
     serializedVersion: 2
     m_Bits: 128
+  damageMultiplier: 1
   WhatIsType: 1
 --- !u!1 &6441161870859515707
 GameObject:
@@ -1768,6 +1747,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8508969155013700218}
+  - component: {fileID: 7907981358668329638}
+  - component: {fileID: 2204388006927723519}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -1792,6 +1773,51 @@ Transform:
   m_Father: {fileID: 2760848400884773453}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &7907981358668329638
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8508969155014129242}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 9e6376af45d044888914cb4041e67a21, type: 3}
+  m_Controller: {fileID: 9100000, guid: f8b85f7809ce2394fb9a8eb1f7fe1545, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2204388006927723519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8508969155014129242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee2feab0563116e4d9ce7ff2149c95aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onIdling:
+    m_PersistentCalls:
+      m_Calls: []
+  onEnableAttack:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisableAttack:
+    m_PersistentCalls:
+      m_Calls: []
+  onDieFinish:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8508969155014129244
 GameObject:
   m_ObjectHideFlags: 0

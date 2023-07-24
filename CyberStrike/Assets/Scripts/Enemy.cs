@@ -39,12 +39,22 @@ public class Enemy : LivingEntity
 
     bool hasTarget => targetEntity != null && !targetEntity.isDead;
 
-    private float damageMultiplier = 1f;
+    public float damageMultiplier = 1f;
+
+    [SerializeField] private EnemyType WhatIsType;
+
+    private EnemyAnimatonEvent enemyAnimatonEvent;
     private void Awake()
     {
         //rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        enemyAnimatonEvent = GetComponentInChildren<EnemyAnimatonEvent>();
+
+        enemyAnimatonEvent.onIdling.AddListener(Idling);
+        enemyAnimatonEvent.onEnableAttack.AddListener(EnableAttack);
+        enemyAnimatonEvent.onDisableAttack.AddListener(DisableAttack);
+        enemyAnimatonEvent.onDieFinish.AddListener(DieFinish);
     }
     protected override void OnEnable()
     {
@@ -56,7 +66,10 @@ public class Enemy : LivingEntity
         this.maxHealth = originMaxHealth * difficulty;
         this.damageMultiplier = difficulty;
         this.moveSpeedMultiplier = difficulty;
-        //
+
+        agent.enabled = true;
+        animator.applyRootMotion = false;
+        animator.SetBool("IsDead", false);
     }
     private void SetAgentSpeed(float moveSpeed)
     {
@@ -123,6 +136,7 @@ public class Enemy : LivingEntity
     public override void Die()
     {
         base.Die();
+        print("적 사망, 점수 추가 : " + maxHealth);
 
         agent.enabled = false;
 
@@ -208,8 +222,8 @@ public class Enemy : LivingEntity
         //print("Enemy hit! hp is : " + this.health);
         //
     }
-    public void TestFunc()
+    public void DieFinish()
     {
-        print("Enemy boost up!");
+        EnemySpawner.Instance.Add2Pool((int)WhatIsType, gameObject);
     }
 }
