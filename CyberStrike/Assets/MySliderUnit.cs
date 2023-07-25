@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class MySliderUnit : MonoBehaviour
 {
+    [SerializeField] private float smoothTime;
     RectTransform rect;
     Slider slider;
 
@@ -19,6 +20,6 @@ public class MySliderUnit : MonoBehaviour
     }
     public void SetValue(float value)
     {
-        slider.value = Mathf.SmoothDamp(slider.value, value, ref curVelocity, 0.02f);
+        slider.value = Mathf.SmoothDamp(slider.value, value, ref curVelocity, smoothTime);
     }
 }

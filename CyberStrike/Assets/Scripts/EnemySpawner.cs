@@ -35,8 +35,6 @@ public class EnemySpawner : MonoBehaviour
         if (!Instance) Instance = this;
         else if (Instance != this) Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
-
         int enumLength = Enum.GetValues(typeof(EnemyType)).Length;
         enemyQueue = new MultiQueue<GameObject>(enumLength);
     }

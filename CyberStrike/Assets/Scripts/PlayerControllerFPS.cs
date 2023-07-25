@@ -156,6 +156,8 @@ public class PlayerControllerFPS : MonoBehaviour
             sprintRemaining = sprintDuration;
             sprintCooldownReset = sprintCooldown;
         }
+
+        GameManager.Instance.onGamePaused += (value) => cameraCanMove = !value;
     }
     void Start()
     {

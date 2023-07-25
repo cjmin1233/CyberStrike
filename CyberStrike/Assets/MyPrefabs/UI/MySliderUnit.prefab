@@ -215,6 +215,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dcf85bf948443c4cac853115cb7afef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wid: 30
-  hei: 35
-  position: {x: 0, y: 0}
+  smoothTime: 0.1

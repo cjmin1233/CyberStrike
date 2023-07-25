@@ -6,6 +6,7 @@ using TMPro;
 public class MyFadingCG : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private bool loop;
     private Animator animator;
     private TextMeshProUGUI cgText;
     private void OnEnable()
@@ -17,14 +18,8 @@ public class MyFadingCG : MonoBehaviour
     }
     public void TriggerFadingCG(string text)
     {
-        if (cgText is null) cgText = GetComponentInChildren<TextMeshProUGUI>();
-
-        if (cgText is null)
-        {
-            print("¹®Á¦!");
-            return;
-        }
         cgText.text = text;
         animator.SetTrigger("FadeTrigger");
+        animator.SetBool("Loop", loop);
     }
 }

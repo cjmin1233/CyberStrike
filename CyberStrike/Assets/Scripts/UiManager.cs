@@ -20,7 +20,10 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject MainPanel;
     [SerializeField] private GameObject StartPanel;
     [SerializeField] private GameObject PauseMenu;
+    [SerializeField] private GameObject GameoverPanel;
     [SerializeField] private MyFadingCG noticeCG;
+    [SerializeField] private MyFadingCG gameOverNoticeCG;
+    [SerializeField] private MyFadingCG bestScoreNoticeCG;
     [SerializeField] private MySliderUnion playerHealthBar;
     [SerializeField] private TextMeshProUGUI playerHealthText;
     [SerializeField] private TextMeshProUGUI scoreText;
@@ -41,6 +44,7 @@ public class UiManager : MonoBehaviour
 
         GameManager.Instance.onMainSceneLoaded.AddListener(MainSceneSetup);
         GameManager.Instance.onStartSceneLoaded.AddListener(StartSceneSetup);
+        GameManager.Instance.onGameOver.AddListener(GameOverSetup);
         SetupCrosshair();
     }
     private void Start()
@@ -53,10 +57,11 @@ public class UiManager : MonoBehaviour
 
     private void OnEscapeTrigger(InputAction.CallbackContext context)
     {
-        if (popUpCounter <= 0 && MainPanel.activeSelf)
+        if (popUpCounter <= 0 && MainPanel.activeSelf && GameManager.Instance.gameState==GameState.Running)
         {
             popUpCounter++;
             PauseMenu.SetActive(true);
+            GameManager.Instance.PauseGame(true);
             Cursor.lockState = CursorLockMode.None;
         }
     }
@@ -67,6 +72,7 @@ public class UiManager : MonoBehaviour
         if (popUpCounter <= 0 && MainPanel.activeSelf)
         {
             popUpCounter = 0;
+            GameManager.Instance.PauseGame(false);
             Cursor.lockState = CursorLockMode.Locked;
         }
     }
@@ -95,6 +101,11 @@ public class UiManager : MonoBehaviour
         if (GameManager.Instance.LoadNextScene()) print("next scene load complete");
         else print("next scene load failed");
     }
+    public void Attempt2LoadStartScene()
+    {
+        if (GameManager.Instance.LoadScene(SceneType.Start)) print("start scene load complete");
+        else print("start scene load failed");
+    }
     public void Attempt2QuitGame()
     {
         GameManager.Instance.QuitGame();
@@ -103,13 +114,29 @@ public class UiManager : MonoBehaviour
     {
         StartPanel.SetActive(true);
         MainPanel.SetActive(false);
+        GameoverPanel.SetActive(false);
     }
     private void MainSceneSetup()
     {
-        MainPanel.SetActive(true);
         StartPanel.SetActive(false);
+        MainPanel.SetActive(true);
+        GameoverPanel.SetActive(false);
+
         Cursor.lockState = CursorLockMode.Locked;
         EnemySpawner.Instance.onDifficultyIncrease += DifficultyNotice;
+    }
+    private void GameOverSetup()
+    {
+        StartPanel.SetActive(false);
+        MainPanel.SetActive(false); 
+        GameoverPanel.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.None;
+        gameOverNoticeCG.TriggerFadingCG("Game Over");
+
+        float bestScore = PlayerPrefs.GetFloat("BestScore");
+        bestScore = Mathf.FloorToInt(bestScore);
+        bestScoreNoticeCG.TriggerFadingCG("Best Score : " + bestScore.ToString());
     }
     private void DifficultyNotice(float difficulty)
     {
