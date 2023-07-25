@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3022268059245836516}
   - component: {fileID: 3315274152663736592}
   - component: {fileID: 5777642042989039187}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: BeholderBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageType: 0
-  originBody: {fileID: 0}
+  originBody: {fileID: 1914472075512139902}
 --- !u!135 &2875584122061128558
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 2760848400884773489}
   - component: {fileID: 2760848400884773454}
   - component: {fileID: 1914472075512139902}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Beholder 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageType: 1
-  originBody: {fileID: 0}
+  originBody: {fileID: 1914472075512139902}
 --- !u!1 &8137664009934166797
 GameObject:
   m_ObjectHideFlags: 0
