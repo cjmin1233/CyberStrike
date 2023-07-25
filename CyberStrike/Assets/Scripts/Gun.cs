@@ -221,4 +221,9 @@ public class Gun : MonoBehaviour
         gunState = GunState.Ready;
         gunAudioPlayer.PlayOneShot(reloadClip);
     }
+    public bool Upgrade()
+    {
+        damage *= 1.1f;
+        return true;
+    }
 }

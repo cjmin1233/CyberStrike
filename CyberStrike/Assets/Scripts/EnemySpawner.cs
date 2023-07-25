@@ -108,6 +108,7 @@ public class EnemySpawner : MonoBehaviour
         var instance = GetFromPool(index);
         instance.GetComponent<Enemy>().Setup(difficulty);
         instance.transform.position = NavMeshUtility.GetRandomPointOnNavmesh(Vector3.zero, 20f);
+        instance.transform.position += Vector3.up * 0.1f;
         instance.SetActive(true);
     }
     public void IncreaseDifficulty()

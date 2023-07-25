@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public enum ItemType
 {
     HealthPack,
+    WeaponUpgrade
 }
 public class ItemSpawner : MonoBehaviour
 {

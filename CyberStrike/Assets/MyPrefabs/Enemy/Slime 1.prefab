@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2345260620739309868}
   - component: {fileID: 6526618640169941029}
   - component: {fileID: 2390151804641584558}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Attack1Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,7 +325,7 @@ Transform:
   - {fileID: 6016548745190964980}
   m_Father: {fileID: 6016726455518412822}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -4.8482205e-15, y: 2.4886302e-14, z: -14.366634}
+  m_LocalEulerAnglesHint: {x: -3.993694e-15, y: 2.4951253e-14, z: -17.605017}
 --- !u!1 &6013469034814043458
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +357,7 @@ Transform:
   - {fileID: 6016726455518412822}
   m_Father: {fileID: 6007974373773287242}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: -67.456604}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: -67.60852}
 --- !u!1 &6013471707878198212
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +388,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6016726455518412822}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 3.5763323, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 3.5763326, y: -90, z: 0}
 --- !u!1 &6013572985003056028
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +419,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6016548745190964980}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 61.498306, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 79.03939, y: 90, z: 0}
 --- !u!1 &6013697921293248868
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +450,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6016548745190964980}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 81.54066, y: -22.500061, z: 247.49994}
+  m_LocalEulerAnglesHint: {x: 61.03062, y: -90, z: 180}
 --- !u!1 &6013760874398258502
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +481,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6016620280218378434}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 52.272186, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 22.23158, y: -90, z: 0}
 --- !u!1 &6013895158346092156
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +512,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6016726455518412822}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 3.5763323, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 3.5763326, y: -90, z: 0}
 --- !u!1 &6013951336318061272
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +639,7 @@ Transform:
   - {fileID: 6137575971241538968}
   m_Father: {fileID: 6016548745190964980}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 79.13513, y: 90.03767, z: -0.06612742}
+  m_LocalEulerAnglesHint: {x: 79.03939, y: 90, z: 0}
 --- !u!1 &6014275984823492100
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,7 +675,7 @@ Transform:
   - {fileID: 2345260620739309868}
   m_Father: {fileID: 6016302708132530620}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -6.251787e-15, y: 3.0088635e-15, z: -23.908323}
+  m_LocalEulerAnglesHint: {x: -7.8245465e-15, y: 1.7398605e-15, z: -25.967804}
 --- !u!1 &6014343682723205046
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,7 +709,7 @@ Transform:
   - {fileID: 6016335102628186906}
   m_Father: {fileID: 6016620280218378434}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -2.0171276e-15, y: -180, z: 62.35939}
+  m_LocalEulerAnglesHint: {x: -2.7825377e-15, y: -180, z: 57.85802}
 --- !u!1 &8460541525258933104
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,9 +719,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2982006900668946939}
-  - component: {fileID: 665188336435961608}
+  - component: {fileID: 6119589175273948400}
   - component: {fileID: 609134451222643282}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BodyCollier
   m_TagString: EnemyBody
   m_Icon: {fileID: 0}
@@ -743,8 +743,8 @@ Transform:
   m_Father: {fileID: 6016726455518412822}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &665188336435961608
-SphereCollider:
+--- !u!65 &6119589175273948400
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -754,8 +754,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.4529851
-  m_Center: {x: -0.18, y: 0.061759245, z: 0.00012516975}
+  m_Size: {x: 0.743472, y: 0.9063624, z: 0.76}
+  m_Center: {x: -0.12173659, y: 0.046921317, z: 8.2064944e-18}
 --- !u!114 &609134451222643282
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 604909712560532660}
   - component: {fileID: 4856274807481879026}
   - component: {fileID: 3792827071165655523}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Attack1Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,6 +343,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2feab0563116e4d9ce7ff2149c95aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onIdling:
+    m_PersistentCalls:
+      m_Calls: []
+  onEnableAttack:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisableAttack:
+    m_PersistentCalls:
+      m_Calls: []
+  onDieFinish:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6299415953148435523
 GameObject:
   m_ObjectHideFlags: 0

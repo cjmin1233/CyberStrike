@@ -34,7 +34,7 @@ public class Enemy : LivingEntity
     [SerializeField, Range(0.01f, 2f)] float turnSmoothTime;
     float turnSmoothVelocity;
 
-    [HideInInspector] public LivingEntity targetEntity;
+    public LivingEntity targetEntity;
     public LayerMask whatIsTarget; // 추적 대상 레이어
 
     bool hasTarget => targetEntity != null && !targetEntity.isDead;
@@ -44,6 +44,7 @@ public class Enemy : LivingEntity
     [SerializeField] private EnemyType WhatIsType;
 
     private EnemyAnimatonEvent enemyAnimatonEvent;
+    private Coroutine updatePath;
     private void Awake()
     {
         //rb = GetComponent<Rigidbody>();
@@ -59,37 +60,57 @@ public class Enemy : LivingEntity
     protected override void OnEnable()
     {
         health = maxHealth;
+        enemyAnimatonEvent.onIdling.RemoveAllListeners();
+        enemyAnimatonEvent.onEnableAttack.RemoveAllListeners();
+        enemyAnimatonEvent.onDisableAttack.RemoveAllListeners();
+        enemyAnimatonEvent.onDieFinish.RemoveAllListeners();
+
+        enemyAnimatonEvent.onIdling.AddListener(Idling);
+        enemyAnimatonEvent.onEnableAttack.AddListener(EnableAttack);
+        enemyAnimatonEvent.onDisableAttack.AddListener(DisableAttack);
+        enemyAnimatonEvent.onDieFinish.AddListener(DieFinish);
+
+        agent.enabled = true;
+        SetAgentSpeed(moveSpeed);
+        updatePath = StartCoroutine(UpdatePath());
+
+        targetEntity = PlayerControllerFPS.Instance.GetComponent<PlayerHealth>();
     }
     public void Setup(float difficulty)
     {
         isDead = false;
-        this.maxHealth = originMaxHealth * difficulty;
-        this.damageMultiplier = difficulty;
-        this.moveSpeedMultiplier = difficulty;
+        state = State.Patrol;
+        maxHealth = originMaxHealth * difficulty;
+        damageMultiplier = difficulty;
+        moveSpeedMultiplier = difficulty;
 
-        agent.enabled = true;
         animator.applyRootMotion = false;
         animator.SetBool("IsDead", false);
+
+        Collider[] childColliders = GetComponentsInChildren<Collider>();
+        foreach (var collider in childColliders)
+        {
+            collider.enabled = true;
+        }
     }
-    private void SetAgentSpeed(float moveSpeed)
+    private void SetAgentSpeed(float value)
     {
-        agent.speed = moveSpeed * moveSpeedMultiplier;
+        agent.speed = value * moveSpeedMultiplier;
+        agent.isStopped = false;
+        animator.SetFloat("MoveSpeed", agent.speed);
+        animator.SetFloat("Speed", moveSpeedMultiplier);
     }
-    private void Start()
-    {
-        StartCoroutine(UpdatePath());
-    }
+    //private void Start()
+    //{
+    //    updatePath = StartCoroutine(UpdatePath());
+    //}
     private void Update()
     {
         if (isDead) return;
-        //print("is stopped? " + agent.isStopped + ", State is : " + state);
-        if (state == State.Tracking && hasTarget &&
-            Vector3.Distance(targetEntity.transform.position, transform.position) <= agent.stoppingDistance)
+        if (hasTarget && state == State.Tracking && Vector3.Distance(targetEntity.transform.position, transform.position) <= agent.stoppingDistance)
         {
             BeginAttack();
         }
-        animator.SetFloat("MoveSpeed", agent.desiredVelocity.magnitude);
-        animator.SetFloat("Speed", moveSpeedMultiplier);
     }
     private void FixedUpdate()
     {
@@ -132,6 +153,7 @@ public class Enemy : LivingEntity
     public void Idling()
     {
         state = State.Patrol;
+        print("enemy idling");
     }
     public override void Die()
     {
@@ -153,6 +175,7 @@ public class Enemy : LivingEntity
     {
         while (!isDead)
         {
+            print(agent.isStopped);
             if (hasTarget)
             {
                 if (state == State.Patrol)
@@ -185,7 +208,7 @@ public class Enemy : LivingEntity
 
                 var colliders = Physics.OverlapSphere(transform.position, 100f, whatIsTarget);
 
-                foreach(var collider in colliders)
+                foreach (var collider in colliders)
                 {
                     var livingEntity = collider.GetComponent<LivingEntity>();
 
@@ -220,6 +243,7 @@ public class Enemy : LivingEntity
     }
     public void DieFinish()
     {
+        StopCoroutine(updatePath);
         EnemySpawner.Instance.Add2Pool((int)WhatIsType, gameObject);
     }
 }

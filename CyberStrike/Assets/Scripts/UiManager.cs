@@ -12,6 +12,7 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private GameObject curCrossHair;
     float originSize;
+
     [SerializeField] float spreadOffset;
 
     [SerializeField] private HitImage hitImage;
@@ -35,12 +36,36 @@ public class UiManager : MonoBehaviour
     private DefaultInputActions inputAction;
 
     int popUpCounter = 0;
+    //public void Init()
+    //{
+    //    if (!Instance) Instance = this;
+    //    else if (Instance != this)
+    //    {
+    //        Destroy(gameObject);
+    //        return;
+    //    }
+
+    //    DontDestroyOnLoad(gameObject);
+
+    //    GameManager.Instance.onMainSceneLoaded.AddListener(MainSceneSetup);
+    //    GameManager.Instance.onStartSceneLoaded.AddListener(StartSceneSetup);
+    //    GameManager.Instance.onGameOver.AddListener(GameOverSetup);
+    //    SetupCrosshair();
+    //}
+    [SerializeField] private GameObject eventSystemPrefab;
     private void Awake()
     {
         if (!Instance) Instance = this;
-        else if (Instance != this) Destroy(gameObject);
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         DontDestroyOnLoad(gameObject);
+
+        var eventSystem = Instantiate(eventSystemPrefab);
+        eventSystem.transform.SetParent(gameObject.transform);
 
         GameManager.Instance.onMainSceneLoaded.AddListener(MainSceneSetup);
         GameManager.Instance.onStartSceneLoaded.AddListener(StartSceneSetup);

@@ -101,7 +101,7 @@ public class PlayerShooter : MonoBehaviour
             else weapons[i].SetActive(false);
         }
     }
-    void UpdateAimPoint()
+    private void UpdateAimPoint()
     {
         //camRay = Camera.main.ViewportPointToRay(viewPoint);
 
@@ -109,7 +109,7 @@ public class PlayerShooter : MonoBehaviour
         if (Physics.Raycast(viewPoint.position, viewPoint.forward, out aimHit, gun.fireDistance)) aimPoint = aimHit.point;
         else aimPoint = viewPoint.position + viewPoint.forward * gun.fireDistance;
     }
-    void UpdateAimState()
+    private void UpdateAimState()
     {
         if (playerAnimator.GetBool("IsSprinting"))
         {
@@ -119,9 +119,13 @@ public class PlayerShooter : MonoBehaviour
         else if (playerAnimator.GetBool("IsReloading")) aimState = AimState.Reloading;
         else aimState = AimState.HipFire;
     }
-    void Shoot()
+    private void Shoot()
     {
         if (gun.Fire(aimPoint)) playerAnimator.SetTrigger("Fire");
         else if (gun.gunState == Gun.GunState.Empty) Reload();
+    }
+    public void UpgradeWeapon()
+    {
+        if (gun.Upgrade()) print("Gun Upgraded");
     }
 }

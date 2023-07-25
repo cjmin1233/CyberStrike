@@ -32,10 +32,32 @@ public class GameManager : MonoBehaviour
     public float gameScore { get; private set; }
     public bool isGameOver { get; private set; }
     public GameState gameState { get; private set; }
+    //public void Init()
+    //{
+    //    if (!Instance) Instance = this;
+    //    else if (Instance != this)
+    //    {
+    //        Destroy(gameObject);
+    //        return;
+    //    }
+
+    //    DontDestroyOnLoad(gameObject);
+
+    //    SceneManager.sceneLoaded += OnSceneLoaded;
+    //    onMainSceneLoaded = new UnityEvent();
+    //    onStartSceneLoaded = new UnityEvent();
+    //    onGameOver = new UnityEvent();
+    //    onGameOver.AddListener(SaveData);
+    //}
+
     private void Awake()
     {
         if (!Instance) Instance = this;
-        else if (Instance != this) Destroy(gameObject);
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         DontDestroyOnLoad(gameObject);
 

@@ -29,6 +29,7 @@ public class PlayerHealth : LivingEntity
     }
     private void Update()
     {
+        if (isDead) return;
         value = Mathf.Clamp01(health / maxHealth);
         UiManager.Instance.UpdatePlayerHealthBar(health,maxHealth);
     }

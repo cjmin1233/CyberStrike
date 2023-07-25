@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPack : MonoBehaviour, IItem
+public class WeaponUpgrade : MonoBehaviour, IItem
 {
     [SerializeField] private ItemType itemType;
-    [SerializeField] float amount;
+
     public void Use(GameObject target)
     {
-        var livingEntity = target.GetComponent<LivingEntity>();
-        if (livingEntity is null) return;
-        livingEntity.RestoreHealth(amount);
+        var shooter = target.GetComponent<PlayerShooter>();
+        if (shooter is null) return;
+        shooter.UpgradeWeapon();
         ItemSpawner.Instance.Add2Pool((int)itemType, gameObject);
     }
 }

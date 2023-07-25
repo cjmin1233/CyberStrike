@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &314293929646199845
+--- !u!1 &2044472159555843770
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 314293929646199844}
-  - component: {fileID: 314293929646199847}
+  - component: {fileID: 2044472159555843768}
+  - component: {fileID: 2044472159555843769}
   m_Layer: 0
-  m_Name: EnemySpawner
+  m_Name: ItemSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &314293929646199844
+--- !u!4 &2044472159555843768
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 314293929646199845}
+  m_GameObject: {fileID: 2044472159555843770}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,23 +32,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &314293929646199847
+--- !u!114 &2044472159555843769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 314293929646199845}
+  m_GameObject: {fileID: 2044472159555843770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c13550aa62850f741b2c2a1dd5d7e10c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ab2e7db824915f468c9bc4785d4d08e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 6012804855157393529, guid: f85bad8336dd42e49b572f0dbf1c4130, type: 3}
-  - {fileID: 2760848400884773452, guid: 927151382f64fce49a367942e8f8e034, type: 3}
-  - {fileID: 4410730210721499140, guid: 1dc6633f790e6b6478479b504e555edc, type: 3}
-  commonSpawnDuration: 6
-  eliteSpawnDuration: 60
-  commonEnemyTypes: 0000000001000000
-  eliteEnemyTypes: 02000000
+  itemPrefabs:
+  - {fileID: 2510724888755281208, guid: 8b34aadab55fd18419103669467232fb, type: 3}
+  - {fileID: 7737267191919837733, guid: 6b4ece6e1ef829b469be37b51af92b1f, type: 3}
+  itemSpawnDuration: 30
