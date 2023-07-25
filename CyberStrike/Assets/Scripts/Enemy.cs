@@ -24,9 +24,9 @@ public class Enemy : LivingEntity
         Attacking
     }
     private State state;
-    NavMeshAgent agent;
-    //Rigidbody rb;
-    Animator animator;
+    protected NavMeshAgent agent;
+    protected Animator animator;
+    protected EnemyAnimatonEvent enemyAnimatonEvent;
 
     [SerializeField] private float moveSpeed;
     private float moveSpeedMultiplier = 1f;
@@ -43,9 +43,8 @@ public class Enemy : LivingEntity
 
     [SerializeField] private EnemyType WhatIsType;
 
-    private EnemyAnimatonEvent enemyAnimatonEvent;
     private Coroutine updatePath;
-    private void Awake()
+    protected virtual void Awake()
     {
         //rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();

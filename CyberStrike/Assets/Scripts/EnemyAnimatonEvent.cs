@@ -9,8 +9,10 @@ public class EnemyAnimatonEvent : MonoBehaviour
     public UnityEvent onEnableAttack;
     public UnityEvent onDisableAttack;
     public UnityEvent onDieFinish;
+    public UnityEvent onShoot;
     public void OnIdling() => onIdling.Invoke();
     public void OnEnableAttack() => onEnableAttack.Invoke();
     public void OnDisableAttack() => onDisableAttack.Invoke();
     public void OnDieFinish() => onDieFinish.Invoke();
+    public void OnShoot() => onShoot.Invoke();
 }
