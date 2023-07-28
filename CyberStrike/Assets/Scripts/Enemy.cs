@@ -26,7 +26,7 @@ public class Enemy : LivingEntity
     private State state;
     protected NavMeshAgent agent;
     protected Animator animator;
-    protected EnemyAnimatonEvent enemyAnimatonEvent;
+    protected EnemyAnimatonEvent enemyAnimationEvent;
 
     [SerializeField] private float moveSpeed;
     private float moveSpeedMultiplier = 1f;
@@ -35,7 +35,7 @@ public class Enemy : LivingEntity
     float turnSmoothVelocity;
 
     public LivingEntity targetEntity;
-    public LayerMask whatIsTarget; // √ﬂ¿˚ ¥ÎªÛ ∑π¿ÃæÓ
+    public LayerMask whatIsTarget; // Ï∂îÏ†Å ÎåÄÏÉÅ Î†àÏù¥Ïñ¥
 
     bool hasTarget => targetEntity != null && !targetEntity.isDead;
 
@@ -49,25 +49,25 @@ public class Enemy : LivingEntity
         //rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        enemyAnimatonEvent = GetComponentInChildren<EnemyAnimatonEvent>();
+        enemyAnimationEvent = GetComponentInChildren<EnemyAnimatonEvent>();
 
-        enemyAnimatonEvent.onIdling.AddListener(Idling);
-        enemyAnimatonEvent.onEnableAttack.AddListener(EnableAttack);
-        enemyAnimatonEvent.onDisableAttack.AddListener(DisableAttack);
-        enemyAnimatonEvent.onDieFinish.AddListener(DieFinish);
+        enemyAnimationEvent.onIdling.AddListener(Idling);
+        enemyAnimationEvent.onEnableAttack.AddListener(EnableAttack);
+        enemyAnimationEvent.onDisableAttack.AddListener(DisableAttack);
+        enemyAnimationEvent.onDieFinish.AddListener(DieFinish);
     }
     protected override void OnEnable()
     {
         health = maxHealth;
-        enemyAnimatonEvent.onIdling.RemoveAllListeners();
-        enemyAnimatonEvent.onEnableAttack.RemoveAllListeners();
-        enemyAnimatonEvent.onDisableAttack.RemoveAllListeners();
-        enemyAnimatonEvent.onDieFinish.RemoveAllListeners();
+        enemyAnimationEvent.onIdling.RemoveAllListeners();
+        enemyAnimationEvent.onEnableAttack.RemoveAllListeners();
+        enemyAnimationEvent.onDisableAttack.RemoveAllListeners();
+        enemyAnimationEvent.onDieFinish.RemoveAllListeners();
 
-        enemyAnimatonEvent.onIdling.AddListener(Idling);
-        enemyAnimatonEvent.onEnableAttack.AddListener(EnableAttack);
-        enemyAnimatonEvent.onDisableAttack.AddListener(DisableAttack);
-        enemyAnimatonEvent.onDieFinish.AddListener(DieFinish);
+        enemyAnimationEvent.onIdling.AddListener(Idling);
+        enemyAnimationEvent.onEnableAttack.AddListener(EnableAttack);
+        enemyAnimationEvent.onDisableAttack.AddListener(DisableAttack);
+        enemyAnimationEvent.onDieFinish.AddListener(DieFinish);
 
         agent.enabled = true;
         SetAgentSpeed(moveSpeed);
@@ -129,7 +129,7 @@ public class Enemy : LivingEntity
         {
             //var direction = transform.forward;
             //var deltaDistance = agent.velocity.magnitude * Time.fixedDeltaTime;
-            // ∞¯∞›
+            // Í≥µÍ≤©
         }
     }
 
@@ -230,7 +230,7 @@ public class Enemy : LivingEntity
         //print("damage type is : "+damageMessage.damageType);
         if (isDead) return;
 
-        // ∞¯∞› ¡ﬂ¿Ã æ∆¥œ∏È ««∞› æ÷¥œ∏ﬁ¿Ãº«
+        // Í≥µÍ≤© Ï§ëÏù¥ ÏïÑÎãàÎ©¥ ÌîºÍ≤© Ïï†ÎãàÎ©îÏù¥ÏÖò
         if (state != State.AttackBegin && state != State.Attacking)
         {
             DisableAttack();

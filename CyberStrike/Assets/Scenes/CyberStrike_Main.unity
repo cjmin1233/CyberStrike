@@ -617,6 +617,10 @@ PrefabInstance:
       propertyPath: m_Weight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3994013126264435462, guid: 30fdc8597043e4647bb7bbb15502fafd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6146230012445758515, guid: 30fdc8597043e4647bb7bbb15502fafd, type: 3}
       propertyPath: m_WarningMessage
       value: "\nBinding warning: Some generic clip(s) animate transforms that are

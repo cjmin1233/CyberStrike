@@ -10,7 +10,7 @@ public class Beholder : Enemy
     {
         base.Awake();
 
-        enemyAnimatonEvent.onShoot.AddListener(Shoot);
+        enemyAnimationEvent.onShoot.AddListener(Shoot);
     }
 
     private void Shoot()
